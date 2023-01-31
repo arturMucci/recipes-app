@@ -6,6 +6,8 @@ import RecipeCard from '../components/RecipeCard';
 import ButtonCategoryDrink from '../components/ButtonCategoryDrink';
 import '../styles/Recipes.css';
 
+// teste
+
 const doze = 12;
 const cinco = 5;
 
