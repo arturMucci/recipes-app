@@ -1,27 +1,83 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import RecipesProvider from '../context/RecipesProvider';
-import RecipeDetails from '../components/RecipeDetails';
+import RecipeCard from '../components/RecipeCard';
+import ButtonCategoryDrink from '../components/ButtonCategoryDrink';
 
 const doze = 12;
-export default function RecipiesDrinks() {
-  const { recipesDrink, setTitle } = useContext(RecipesProvider);
+const cinco = 5;
 
-  useEffect(() => {
-    setTitle('Drinks');
-  }, [setTitle]);
+function RecipesDrinks({ match: { url } }) {
+  const { recipesDrink,
+    listDrink,
+    setRecipesDrink } = useContext(RecipesProvider);
+
+  const [isFiltered, setIsFiltered] = useState(true);
+
+  const fetchFilterDrink = async (category) => {
+    const endereco = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
+    await fetch(endereco)
+      .then((e) => e.json())
+      .then((data) => {
+        setRecipesDrink(data.drinks);
+        setIsFiltered(false);
+      });
+  };
+
+  const fetchDrink = async () => {
+    const endereco = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+    await fetch(endereco)
+      .then((e) => e.json())
+      .then((data) => setRecipesDrink(data.drinks));
+    setIsFiltered(true);
+  };
+  console.log();
 
   return (
     <div>
-      {recipesDrink.map((recipe, index) => (
+      { recipesDrink.map((recipe, index) => (
         index < doze && (
-          <RecipeDetails
+          <NavLink
+            // style={ { textDecoration: 'none' } }
             key={ recipe.idDrink }
-            recipe={ recipe }
-            index={ index }
-            literal="Drink"
-          />
+            to={ `/drinks/${recipe.idDrink}` }
+          >
+            <RecipeCard
+              recipe={ recipe }
+              index={ index }
+              url={ url }
+            />
+          </NavLink>
         )
-      ))}
+      )) }
+      {' '}
+      <div>
+        { listDrink.map((category, index) => (
+          index < cinco && (
+            <ButtonCategoryDrink
+              key={ category.strCategory }
+              category={ category.strCategory }
+              fetchFilterDrink={ isFiltered ? fetchFilterDrink : fetchDrink }
+            />
+          )
+        )) }
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => fetchDrink() }
+        >
+          All
+        </button>
+      </div>
     </div>
   );
 }
+
+RecipesDrinks.propTypes = {
+  match: PropTypes.shape({
+    url: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+export default RecipesDrinks;
