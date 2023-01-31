@@ -5,8 +5,6 @@ import RecipesProvider from '../context/RecipesProvider';
 import RecipeCard from '../components/RecipeCard';
 import ButtonCategoryFood from '../components/ButtonCategoryFood';
 
-// teste
-
 const doze = 12;
 const cinco = 5;
 function Recipes({ match: { url } }) {
