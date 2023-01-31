@@ -1,7 +1,13 @@
 import React from 'react';
 
-export default function RecipesInProgress() {
+import InputImg from '../components/InputImg';
+
+function RecipesInProgress() {
   return (
-    <div>RecipesInProgress</div>
+    <div>
+      <InputImg />
+    </div>
   );
 }
+
+export default RecipesInProgress;

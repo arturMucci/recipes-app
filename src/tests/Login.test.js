@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import { renderWithRouter } from './helpers/renderWith';
@@ -64,6 +64,6 @@ describe('A página de Login', () => {
     userEvent.type(passwordInput, userPassword);
     userEvent.click(loginButton);
 
-    expect(history.location.pathname).toBe('/meals');
+    waitFor(() => expect(history.location.pathname).toBe('/meals'));
   });
 });

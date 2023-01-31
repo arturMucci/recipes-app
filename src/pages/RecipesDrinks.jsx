@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import RecipesProvider from '../context/RecipesProvider';
 import RecipeCard from '../components/RecipeCard';
 import ButtonCategoryDrink from '../components/ButtonCategoryDrink';
+import Footer from '../components/Footer';
 
 const doze = 12;
 const cinco = 5;
@@ -39,7 +40,6 @@ function RecipesDrinks({ match: { url } }) {
       { recipesDrink.map((recipe, index) => (
         index < doze && (
           <NavLink
-            // style={ { textDecoration: 'none' } }
             key={ recipe.idDrink }
             to={ `/drinks/${recipe.idDrink}` }
           >
@@ -70,6 +70,7 @@ function RecipesDrinks({ match: { url } }) {
           All
         </button>
       </div>
+      <Footer />
     </div>
   );
 }

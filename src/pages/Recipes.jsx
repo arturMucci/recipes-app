@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RecipesProvider from '../context/RecipesProvider';
 import RecipeCard from '../components/RecipeCard';
 import ButtonCategoryFood from '../components/ButtonCategoryFood';
+import Footer from '../components/Footer';
 
 const doze = 12;
 const cinco = 5;
@@ -13,6 +14,10 @@ function Recipes({ match: { url } }) {
     setRecipesFood } = useContext(RecipesProvider);
 
   const [test, setTest] = useState(true);
+
+  useEffect(() => {
+    setTitle('Meals');
+  }, [setTitle]);
 
   const fetchFilterFood = async (category) => {
     const endereco = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
@@ -38,6 +43,7 @@ function Recipes({ match: { url } }) {
     <div>
       { recipesFood.map((recipe, index) => (
         index < doze && (
+
           <NavLink
             key={ recipe.idMeal }
             to={ `meals/${recipe.idMeal}` }
@@ -69,6 +75,7 @@ function Recipes({ match: { url } }) {
           All
         </button>
       </div>
+      <Footer />
     </div>
   );
 }
