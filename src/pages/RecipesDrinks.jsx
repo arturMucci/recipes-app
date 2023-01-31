@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import RecipesProvider from '../context/RecipesProvider';
-import RecipeDetails from '../components/RecipeDetails';
+import RecipeCard from '../components/RecipeCard';
 import Footer from '../components/Footer';
 
 const doze = 12;
@@ -15,7 +15,7 @@ export default function RecipiesDrinks() {
     <div>
       {recipesDrink.map((recipe, index) => (
         index < doze && (
-          <RecipeDetails
+          <RecipeCard
             key={ recipe.idDrink }
             recipe={ recipe }
             index={ index }

@@ -30,8 +30,8 @@ function Header() {
     pathname === '/'
     || pathname.startsWith('/meals/')
     || pathname.startsWith('/drinks/')
-    || pathname.startsWith('meals/:id-da-receita/')
-    || pathname.startsWith('drinks/:id-da-receita/')
+    || pathname.startsWith('meals/:id/')
+    || pathname.startsWith('drinks/:id/')
   ) {
     showProfile = true;
     return null;
