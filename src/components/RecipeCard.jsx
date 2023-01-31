@@ -1,18 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function RecipeCard({ index, recipe, literal }) {
+export default function RecipeCard({ index, recipe, url }) {
+  const split = url.split('/');
+  const key = `${split[1][0].toUpperCase()}${split[1].slice(1, split[1].length - 1)}`;
+
   return (
-    <div data-testid={ `${index}-recipe-card` }>
+    <div
+      data-testid={ `${index}-recipe-card` }
+      id="card"
+    >
       <img
         data-testid={ `${index}-card-img` }
-        src={ recipe[`str${literal}Thumb`] }
-        alt={ recipe[`str${literal}`] }
+        src={ recipe[`str${key}Thumb`].replace('\\', '') }
+        alt={ recipe[`str${key}`] }
+        style={ { width: '200px' } }
       />
       <span
         data-testid={ `${index}-card-name` }
       >
-        { recipe[`str${literal}`] }
+        { recipe[`str${key}`] }
       </span>
     </div>
   );
@@ -20,6 +27,6 @@ export default function RecipeCard({ index, recipe, literal }) {
 
 RecipeCard.propTypes = {
   index: PropTypes.number.isRequired,
-  recipe: PropTypes.func.isRequired,
-  literal: PropTypes.string.isRequired,
+  recipe: PropTypes.shape({}).isRequired,
+  url: PropTypes.string.isRequired,
 };

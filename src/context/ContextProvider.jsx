@@ -7,6 +7,9 @@ export function ContextProvider({ children }) {
   const [recipesFood, setRecipesFood] = useState([]);
   const [recipesDrink, setRecipesDrink] = useState([]);
   const [title, setTitle] = useState('');
+  const [listFood, setListFood] = useState([]);
+  const [listDrink, setListDrink] = useState([]);
+  const [filterDrink, setFilterDrink] = useState([]);
   const [doneRecipes, setDoneRecipes] = useState({});
   const [isCopied, setIsCopied] = useState(false);
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
@@ -22,23 +25,44 @@ export function ContextProvider({ children }) {
     drinks: {},
   });
 
+
   const fetchFood = async () => {
     const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
     await fetch(url)
       .then((e) => e.json())
-      .then((data) => setRecipesFood(data.meals));
+      .then((data) => {
+        setRecipesFood(data.meals);
+      });
   };
 
   const fetchDrink = async () => {
     const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
     await fetch(url)
       .then((e) => e.json())
-      .then((data) => setRecipesDrink(data.drinks));
+      .then((data) => {
+        setRecipesDrink(data.drinks);
+      });
+  };
+
+  const fetchListFood = async () => {
+    const url = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+    await fetch(url)
+      .then((e) => e.json())
+      .then((data) => setListFood(data.meals));
+  };
+
+  const fetchListDrink = async () => {
+    const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+    await fetch(url)
+      .then((e) => e.json())
+      .then((data) => setListDrink(data.drinks));
   };
 
   useEffect(() => {
     fetchFood();
     fetchDrink();
+    fetchListFood();
+    fetchListDrink();
   }, []);
 
   useEffect(() => {
@@ -66,6 +90,11 @@ export function ContextProvider({ children }) {
       recipesFood,
       recipesDrink,
       setRecipesFood,
+      setRecipesDrink,
+      listDrink,
+      listFood,
+      filterDrink,
+      setFilterDrink,
       searching,
       setSearching,
       inProgressRecipes,
@@ -85,6 +114,11 @@ export function ContextProvider({ children }) {
       recipesFood,
       recipesDrink,
       setRecipesFood,
+      setRecipesDrink,
+      listDrink,
+      listFood,
+      filterDrink,
+      setFilterDrink,
       searching,
       setSearching,
       inProgressRecipes,

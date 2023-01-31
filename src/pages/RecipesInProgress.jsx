@@ -1,4 +1,5 @@
 import React from 'react';
+
 import InputImg from '../components/InputImg';
 
 function RecipesInProgress() {
