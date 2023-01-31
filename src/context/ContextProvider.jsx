@@ -25,7 +25,6 @@ export function ContextProvider({ children }) {
     drinks: {},
   });
 
-
   const fetchFood = async () => {
     const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
     await fetch(url)
