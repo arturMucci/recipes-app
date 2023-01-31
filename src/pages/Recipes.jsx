@@ -4,14 +4,17 @@ import PropTypes from 'prop-types';
 import RecipesProvider from '../context/RecipesProvider';
 import RecipeCard from '../components/RecipeCard';
 import ButtonCategoryFood from '../components/ButtonCategoryFood';
-import Footer from '../components/Footer';
+import '../styles/Recipes.css';
 
 const doze = 12;
 const cinco = 5;
 function Recipes({ match: { url } }) {
-  const { recipesFood,
+  const {
+    recipesFood,
     listFood,
-    setRecipesFood } = useContext(RecipesProvider);
+    setRecipesFood,
+    setTitle,
+  } = useContext(RecipesProvider);
 
   const [test, setTest] = useState(true);
 
@@ -40,7 +43,7 @@ function Recipes({ match: { url } }) {
   };
 
   return (
-    <div>
+    <div className="recipes-container">
       { recipesFood.map((recipe, index) => (
         index < doze && (
 
@@ -75,7 +78,6 @@ function Recipes({ match: { url } }) {
           All
         </button>
       </div>
-      <Footer />
     </div>
   );
 }
