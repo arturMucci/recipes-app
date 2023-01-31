@@ -7,7 +7,20 @@ export function ContextProvider({ children }) {
   const [recipesFood, setRecipesFood] = useState([]);
   const [recipesDrink, setRecipesDrink] = useState([]);
   const [title, setTitle] = useState('');
-  const [searching, setSearching] = useState({ value: '', clicked: false, done: false });
+  const [doneRecipes, setDoneRecipes] = useState({});
+  const [isCopied, setIsCopied] = useState(false);
+  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+
+  const [searching, setSearching] = useState({
+    value: '',
+    clicked: false,
+    done: false,
+  });
+
+  const [inProgressRecipes, setInProgressRecipes] = useState({
+    meals: {},
+    drinks: {},
+  });
 
   const fetchFood = async () => {
     const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
@@ -29,7 +42,20 @@ export function ContextProvider({ children }) {
   }, []);
 
   useEffect(() => {
+    if (!localStorage.inProgressRecipes) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        meals: {},
+        drinks: {},
+      }));
+    } else {
+      const recipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      setInProgressRecipes(recipes);
+    }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+  }, [inProgressRecipes]);
 
   const GLOBAL_CONTEXT = useMemo(
     () => ({
@@ -42,6 +68,14 @@ export function ContextProvider({ children }) {
       setRecipesFood,
       searching,
       setSearching,
+      inProgressRecipes,
+      setInProgressRecipes,
+      doneRecipes,
+      setDoneRecipes,
+      isCopied,
+      setIsCopied,
+      favoriteRecipes,
+      setFavoriteRecipes,
     }),
     [
       path,
@@ -53,6 +87,14 @@ export function ContextProvider({ children }) {
       setRecipesFood,
       searching,
       setSearching,
+      inProgressRecipes,
+      setInProgressRecipes,
+      doneRecipes,
+      setDoneRecipes,
+      isCopied,
+      setIsCopied,
+      favoriteRecipes,
+      setFavoriteRecipes,
     ],
   );
 

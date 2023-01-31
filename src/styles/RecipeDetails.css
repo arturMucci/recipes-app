@@ -1,0 +1,89 @@
+.recipe-details-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.recipe-photo {
+  border-radius: 30px;
+  width: 450px;
+}
+
+.carousel-container {
+  display: flex;
+  height: 222px;
+}
+
+.carousel {
+  display: flex;
+  height: 222px;
+  overflow: hidden;
+  width: 400px;
+}
+
+.recommendation-title {
+  border: 1px solid black;
+  text-align: center;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  height: 240px;
+  transition: transform 0.3s;
+  white-space: nowrap;
+}
+
+.recomendation-btn {
+  background-color: #000000ce;
+  color: white;
+}
+
+.recomendation-btn:hover {
+  background-color: #00000063;
+}
+
+.carousel-item-img {
+  align-items: center;
+  border: 1px solid black;
+  height: 200px;
+  justify-content: center;
+}
+
+.ingredient-name-and-measure {
+  list-style: none;
+}
+
+.instructions {
+  display: flex;
+  flex-wrap: wrap;
+  width: 300px;
+}
+
+.recipe-video {
+  align-items: center;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 1vw;
+}
+
+.start-recipe-btn {
+  background-color: orange;
+  border: none;
+  bottom: 0;
+  color: white;
+  font-size: 2em;
+  font-weight: 700;
+  position: fixed;
+  width: 100%;
+}
+
+.start-recipe-btn:hover {
+  background-color: orangered;
+  transition: 300ms;
+}
+
+.start-recipe-btn:active {
+  background-color: orange;
+}

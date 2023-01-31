@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import RecipesProvider from '../context/RecipesProvider';
-import RecipeDetails from '../components/RecipeDetails';
+import RecipeCard from '../components/RecipeCard';
 import Footer from '../components/Footer';
 
 const doze = 12;
-function Meals() {
+function Recipes() {
   const { recipesFood, setTitle } = useContext(RecipesProvider);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ function Meals() {
     <div>
       { recipesFood.map((recipe, index) => (
         index < doze && (
-          <RecipeDetails
+          <RecipeCard
             key={ recipe.idMeal }
             recipe={ recipe }
             index={ index }
@@ -28,4 +28,4 @@ function Meals() {
   );
 }
 
-export default Meals;
+export default Recipes;
