@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import RecipesProvider from '../context/RecipesProvider';
 import RecipeCard from '../components/RecipeCard';
 import ButtonCategoryFood from '../components/ButtonCategoryFood';
-import '../styles/Recipes.css';
+import Footer from '../components/Footer';
+// import '../styles/Recipes.css';
 
 const doze = 12;
 const cinco = 5;
@@ -44,23 +45,7 @@ function Recipes({ match: { url } }) {
 
   return (
     <div className="recipes-container">
-      { recipesFood.map((recipe, index) => (
-        index < doze && (
-
-          <NavLink
-            key={ recipe.idMeal }
-            to={ `meals/${recipe.idMeal}` }
-          >
-            <RecipeCard
-              recipe={ recipe }
-              index={ index }
-              url={ url }
-            />
-          </NavLink>
-        )
-      )) }
-      {' '}
-      <div>
+      <div className="filter-container">
         { listFood.map((category, index) => (
           index < cinco && (
             <ButtonCategoryFood
@@ -73,11 +58,27 @@ function Recipes({ match: { url } }) {
         <button
           type="button"
           data-testid="All-category-filter"
+          className="category-btn"
           onClick={ () => fetchFood() }
         >
           All
         </button>
       </div>
+      { recipesFood.map((recipe, index) => (
+        index < doze && (
+          <NavLink
+            key={ recipe.idMeal }
+            to={ `meals/${recipe.idMeal}` }
+          >
+            <RecipeCard
+              recipe={ recipe }
+              index={ index }
+              url={ url }
+            />
+          </NavLink>
+        )
+      )) }
+      <Footer />
     </div>
   );
 }

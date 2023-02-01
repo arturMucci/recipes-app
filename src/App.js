@@ -10,7 +10,6 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import RecipeDetails from './pages/RecipeDetails';
 import RecipesInProgress from './pages/RecipesInProgress';
-import Footer from './components/Footer';
 // import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -32,7 +31,6 @@ function App() {
           <Route exact path="/meals/:id/in-progress" component={ RecipesInProgress } />
           <Route exact path="/drinks/:id/in-progress" component={ RecipesInProgress } />
         </Switch>
-        <Footer />
       </BrowserRouter>
     </ContextProvider>
   );

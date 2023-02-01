@@ -58,27 +58,15 @@ export function ContextProvider({ children }) {
   };
 
   useEffect(() => {
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+  }, [inProgressRecipes]);
+
+  useEffect(() => {
     fetchFood();
     fetchDrink();
     fetchListFood();
     fetchListDrink();
   }, []);
-
-  useEffect(() => {
-    if (!localStorage.inProgressRecipes) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify({
-        meals: {},
-        drinks: {},
-      }));
-    } else {
-      const recipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      setInProgressRecipes(recipes);
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-  }, [inProgressRecipes]);
 
   const GLOBAL_CONTEXT = useMemo(
     () => ({

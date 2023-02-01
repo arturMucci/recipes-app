@@ -1,10 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RecipesProvider from '../context/RecipesProvider';
 import RecipeCard from '../components/RecipeCard';
 import ButtonCategoryDrink from '../components/ButtonCategoryDrink';
-import '../styles/Recipes.css';
+import Footer from '../components/Footer';
+// import '../styles/Recipes.css';
 
 const doze = 12;
 const cinco = 5;
@@ -15,6 +16,11 @@ function RecipesDrinks({ match: { url } }) {
     setRecipesDrink } = useContext(RecipesProvider);
 
   const [isFiltered, setIsFiltered] = useState(true);
+
+  const { setTitle } = useContext(RecipesProvider);
+  useEffect(() => {
+    setTitle('Drinks');
+  }, [setTitle]);
 
   const fetchFilterDrink = async (category) => {
     const endereco = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
@@ -37,22 +43,7 @@ function RecipesDrinks({ match: { url } }) {
 
   return (
     <div className="recipes-container">
-      { recipesDrink.map((recipe, index) => (
-        index < doze && (
-          <NavLink
-            key={ recipe.idDrink }
-            to={ `/drinks/${recipe.idDrink}` }
-          >
-            <RecipeCard
-              recipe={ recipe }
-              index={ index }
-              url={ url }
-            />
-          </NavLink>
-        )
-      )) }
-      {' '}
-      <div>
+      <div className="filter-container">
         { listDrink.map((category, index) => (
           index < cinco && (
             <ButtonCategoryDrink
@@ -70,6 +61,21 @@ function RecipesDrinks({ match: { url } }) {
           All
         </button>
       </div>
+      { recipesDrink.map((recipe, index) => (
+        index < doze && (
+          <NavLink
+            key={ recipe.idDrink }
+            to={ `/drinks/${recipe.idDrink}` }
+          >
+            <RecipeCard
+              recipe={ recipe }
+              index={ index }
+              url={ url }
+            />
+          </NavLink>
+        )
+      )) }
+      <Footer />
     </div>
   );
 }

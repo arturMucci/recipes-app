@@ -7,6 +7,7 @@ export default function ButtonCategoryDrink({ category, fetchFilterDrink }) {
       <div>
         <button
           data-testid={ `${category}-category-filter` }
+          className="category-btn"
           onClick={ () => fetchFilterDrink(category) }
         >
           { category }
