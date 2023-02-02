@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RecipesProvider from '../context/RecipesProvider';
@@ -12,7 +12,9 @@ const cinco = 5;
 function RecipesDrinks({ match: { url } }) {
   const { recipesDrink,
     listDrink,
-    setRecipesDrink } = useContext(RecipesProvider);
+    setRecipesDrink,
+    fetchDrink,
+    fetchListDrink } = useContext(RecipesProvider);
 
   const [isFiltered, setIsFiltered] = useState(true);
 
@@ -26,14 +28,18 @@ function RecipesDrinks({ match: { url } }) {
       });
   };
 
-  const fetchDrink = async () => {
+  const fetchDrink2 = async () => {
     const endereco = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
     await fetch(endereco)
       .then((e) => e.json())
       .then((data) => setRecipesDrink(data.drinks));
     setIsFiltered(true);
   };
-  console.log();
+
+  useEffect(() => {
+    fetchDrink();
+    fetchListDrink();
+  }, [fetchDrink, fetchListDrink]);
 
   return (
     <div className="recipes-container">
@@ -58,14 +64,14 @@ function RecipesDrinks({ match: { url } }) {
             <ButtonCategoryDrink
               key={ category.strCategory }
               category={ category.strCategory }
-              fetchFilterDrink={ isFiltered ? fetchFilterDrink : fetchDrink }
+              fetchFilterDrink={ isFiltered ? fetchFilterDrink : fetchDrink2 }
             />
           )
         )) }
         <button
           type="button"
           data-testid="All-category-filter"
-          onClick={ () => fetchDrink() }
+          onClick={ () => fetchDrink2() }
         >
           All
         </button>
