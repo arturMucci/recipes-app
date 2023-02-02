@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import RecipesProvider from '../context/RecipesProvider';
+import Header from '../components/Header';
 
 function DoneRecipes() {
   const { setTitle } = useContext(RecipesProvider);
@@ -7,7 +8,9 @@ function DoneRecipes() {
     setTitle('Done Recipes');
   }, [setTitle]);
   return (
-    <div>DoneRecipes</div>
+    <div>
+      <Header />
+    </div>
   );
 }
 

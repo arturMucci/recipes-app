@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import RecipesProvider from '../context/RecipesProvider';
+import Header from '../components/Header';
 
 function FavoriteRecipes() {
   const { setTitle } = useContext(RecipesProvider);
@@ -7,7 +8,9 @@ function FavoriteRecipes() {
     setTitle('Favorite Recipes');
   }, [setTitle]);
   return (
-    <div>Favorite Recipes</div>
+    <div>
+      <Header />
+    </div>
   );
 }
 

@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import RecipesProvider from './RecipesProvider';
 
@@ -25,47 +25,40 @@ export function ContextProvider({ children }) {
     drinks: {},
   });
 
-  const fetchFood = async () => {
+  const fetchFood = useCallback(async () => {
     const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
     await fetch(url)
       .then((e) => e.json())
-      .then((data) => {
-        setRecipesFood(data.meals);
-      });
-  };
+      .then((data) => setRecipesFood(data.meals));
+  }, []);
 
-  const fetchDrink = async () => {
+  const fetchDrink = useCallback(async () => {
     const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
     await fetch(url)
       .then((e) => e.json())
-      .then((data) => {
-        setRecipesDrink(data.drinks);
-      });
-  };
+      .then((data) => setRecipesDrink(data.drinks));
+  }, []);
 
-  const fetchListFood = async () => {
+  const fetchListFood = useCallback(async () => {
     const url = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
     await fetch(url)
       .then((e) => e.json())
       .then((data) => setListFood(data.meals));
-  };
+  }, []);
 
-  const fetchListDrink = async () => {
+  const fetchListDrink = useCallback(async () => {
     const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
     await fetch(url)
       .then((e) => e.json())
       .then((data) => setListDrink(data.drinks));
-  };
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   }, [inProgressRecipes]);
 
   useEffect(() => {
-    fetchFood();
-    fetchDrink();
-    fetchListFood();
-    fetchListDrink();
+
   }, []);
 
   const GLOBAL_CONTEXT = useMemo(
@@ -92,6 +85,10 @@ export function ContextProvider({ children }) {
       setIsCopied,
       favoriteRecipes,
       setFavoriteRecipes,
+      fetchFood,
+      fetchListFood,
+      fetchDrink,
+      fetchListDrink,
     }),
     [
       path,
@@ -116,6 +113,10 @@ export function ContextProvider({ children }) {
       setIsCopied,
       favoriteRecipes,
       setFavoriteRecipes,
+      fetchFood,
+      fetchListFood,
+      fetchDrink,
+      fetchListDrink,
     ],
   );
 

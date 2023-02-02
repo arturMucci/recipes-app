@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import Login from './pages/Login';
-import Header from './components/Header';
 import Recipes from './pages/Recipes';
 import RecipesDrinks from './pages/RecipesDrinks';
 import Profile from './pages/Profile';
@@ -18,7 +17,6 @@ function App() {
   return (
     <ContextProvider>
       <BrowserRouter>
-        <Header />
         <Switch>
           <Route exact path="/" component={ Login } />
           <Route exact path="/profile" component={ Profile } />
