@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RecipesProvider from '../context/RecipesProvider';
@@ -17,8 +17,7 @@ function RecipesDrinks({ match: { url } }) {
     listDrink,
     setRecipesDrink,
     fetchDrink,
-    fetchListDrink,
-  } = useContext(RecipesProvider);
+    fetchListDrink } = useContext(RecipesProvider);
 
   const [isFiltered, setIsFiltered] = useState(true);
 

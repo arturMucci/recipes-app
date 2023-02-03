@@ -26,6 +26,11 @@ function Recipes({ match: { url } }) {
     setTitle('Meals');
   }, [setTitle]);
 
+  useEffect(() => {
+    fetchFood();
+    fetchListFood();
+  }, [fetchFood, fetchListFood]);
+
   const fetchFilterFood = async (category) => {
     const endereco = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
     await fetch(endereco)

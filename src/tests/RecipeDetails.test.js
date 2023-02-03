@@ -1,4 +1,4 @@
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import App from '../App';
@@ -12,8 +12,8 @@ import { renderWithRouter } from './helpers/renderWith';
 
 const mealsUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const drinksUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-const mealCategoriesUrl = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
-const drinkCategoriesUrl = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+const mealCategoriesUrl = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+const drinkCategoriesUrl = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
 const oneMealUrl = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52977';
 const oneDrinkUrl = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=15997';
 
@@ -26,10 +26,12 @@ describe('RecipeDetails Tests: ', () => {
       json: async () => {
         switch (url) {
         case mealsUrl:
+          console.log(meals.meals[0]);
           return meals;
         case oneMealUrl:
           return oneMeal;
         case mealCategoriesUrl:
+          console.log(mealCategories.meals[0]);
           return mealCategories;
         case drinkCategoriesUrl:
           return drinkCategories;

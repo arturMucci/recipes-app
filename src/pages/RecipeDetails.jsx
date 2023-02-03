@@ -88,7 +88,7 @@ export default function RecipeDetails({ history, match: { params: { id }, url } 
       break;
     }
   };
-  // console.log(recipe);
+
   const ingredients = Object.entries(recipe)
     .filter((each) => each[0].includes('strIngredient'))
     .map((each) => each[1]);
@@ -100,16 +100,12 @@ export default function RecipeDetails({ history, match: { params: { id }, url } 
     switch (target.id) {
     case 'lesserThan':
       setCarouselIndex(
-        carouselIndex > 0
-          ? carouselIndex - 2
-          : recomendations.length - 2,
+        carouselIndex > 0 ? carouselIndex - 2 : recomendations.length - 2,
       );
       break;
     case 'greaterThan':
       setCarouselIndex(
-        carouselIndex < recomendations.length - 2
-          ? carouselIndex + 2
-          : 0,
+        carouselIndex < recomendations.length - 2 ? carouselIndex + 2 : 0,
       );
       break;
     default:
@@ -117,14 +113,10 @@ export default function RecipeDetails({ history, match: { params: { id }, url } 
     }
   };
 
-  if (!recipe) {
-    return <span>Loading...</span>;
-  }
+  if (recipe === null) return <span>Loading...</span>;
 
   return (
-    <section
-      className="recipe-details-container"
-    >
+    <section className="recipe-details-container">
       <InputImg
         url={ url }
         recipe={ recipe }
@@ -135,9 +127,7 @@ export default function RecipeDetails({ history, match: { params: { id }, url } 
       <img
         data-testid="recipe-photo"
         className="recipe-photo"
-        src={
-          recipe[imgSrcKey]
-        }
+        src={ recipe[imgSrcKey] }
         alt={ recipe[imgAltKey] }
       />
       <h1
@@ -153,18 +143,16 @@ export default function RecipeDetails({ history, match: { params: { id }, url } 
         {recipe[ask[1] === 'meals' ? 'strCategory' : 'strAlcoholic']}
       </p>
       <ol>
-        {
-          ingredients.map((each, index) => (
-            (each !== '' && each !== null) && (
-              <li
-                key={ `strIngredient${index}` }
-                data-testid={ `${index}-ingredient-name-and-measure` }
-                className="ingredient-name-and-measure"
-              >
-                {`${each} - ${measure[index] ?? ''}`}
-              </li>
-            )))
-        }
+        {ingredients.map((each, index) => (
+          (each !== '' && each !== null) && (
+            <li
+              key={ `strIngredient${index}` }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              className="ingredient-name-and-measure"
+            >
+              {`${each} - ${measure[index] ?? ''}`}
+            </li>
+          )))}
       </ol>
       <p
         data-testid="instructions"
@@ -173,21 +161,22 @@ export default function RecipeDetails({ history, match: { params: { id }, url } 
         {recipe.strInstructions}
       </p>
       <section className="recipe-video">
-        {
-          ask[1] === 'meals' && (
-            <iframe
-              data-testid="video"
-              width="560"
-              height="315"
-              src={ `${recipe.strYoutube.replace('watch?v=', 'embed/')}` }
-              title="YouTube video player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
+        { ask[1] === 'meals' && (
+          <iframe
+            data-testid="video"
+            width="560"
+            height="315"
+            src={
+              recipe.strYoutube
+                ? recipe.strYoutube.replace('watch?v=', 'embed/')
+                : ''
+            }
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
               picture-in-picture;"
-              allowFullScreen
-            />)
-        }
+            allowFullScreen
+          />)}
       </section>
-
       <div className="carousel-container">
         <button
           className="recomendation-btn"
@@ -198,30 +187,28 @@ export default function RecipeDetails({ history, match: { params: { id }, url } 
           &lt;
         </button>
         <div className="carousel">
-          {
-            recomendations.length > 0 && (
-              recomendations
-                .map((each, index) => (
-                  <div
-                    data-testid={ `${index}-recommendation-card` }
-                    key={ `${index}${each[`str${carouselKey}`]}` }
-                    className="inner"
-                    style={ { transform: `translateX(${position[carouselIndex]})` } }
+          {recomendations.length > 0 && (
+            recomendations
+              .map((each, index) => (
+                <div
+                  data-testid={ `${index}-recommendation-card` }
+                  key={ `${index}${each[`str${carouselKey}`]}` }
+                  className="inner"
+                  style={ { transform: `translateX(${position[carouselIndex]})` } }
+                >
+                  <img
+                    className="carousel-item-img"
+                    src={ each[carouselImgKey] }
+                    alt={ each[`str${carouselKey}`] }
+                  />
+                  <span
+                    data-testid={ `${index}-recommendation-title` }
+                    className="recommendation-title"
                   >
-                    <img
-                      className="carousel-item-img"
-                      src={ each[carouselImgKey] }
-                      alt={ each[`str${carouselKey}`] }
-                    />
-                    <span
-                      data-testid={ `${index}-recommendation-title` }
-                      className="recommendation-title"
-                    >
-                      {each[carouselTitleKey]}
-                    </span>
-                  </div>
-                )))
-          }
+                    {each[carouselTitleKey]}
+                  </span>
+                </div>
+              )))}
         </div>
         <button
           className="recomendation-btn"
