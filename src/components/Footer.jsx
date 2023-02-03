@@ -1,4 +1,6 @@
 import React from 'react';
+import mealIcon from '../images/mealIcon.svg';
+import drinkIcon from '../images/drinkIcon.svg';
 import '../styles/Footer.css';
 
 function Footer() {
@@ -12,14 +14,14 @@ function Footer() {
         <footer>
           <a href="/drinks">
             <img
-              src="src/images/drinkIcon.svg"
+              src={ drinkIcon }
               alt="drink icon"
               data-testid="drinks-bottom-btn"
             />
           </a>
           <a href="/meals">
             <img
-              src="src/images/mealIcon.svg"
+              src={ mealIcon }
               alt="meal icon"
               data-testid="meals-bottom-btn"
             />

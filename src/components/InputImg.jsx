@@ -1,5 +1,5 @@
 // ~/src/components/InputImg.jsx
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
@@ -14,11 +14,11 @@ function InputImg({
   imgKeys,
 }) {
   const {
-    isCopied,
-    setIsCopied,
     favoriteRecipes,
     setFavoriteRecipes,
   } = useContext(RecipesProvider);
+
+  const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
     const storage = JSON.parse(localStorage.getItem('favoriteRecipes'));

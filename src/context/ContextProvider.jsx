@@ -11,7 +11,6 @@ export function ContextProvider({ children }) {
   const [listDrink, setListDrink] = useState([]);
   const [filterDrink, setFilterDrink] = useState([]);
   const [doneRecipes, setDoneRecipes] = useState({});
-  const [isCopied, setIsCopied] = useState(false);
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
 
   const [searching, setSearching] = useState({
@@ -77,8 +76,6 @@ export function ContextProvider({ children }) {
       setInProgressRecipes,
       doneRecipes,
       setDoneRecipes,
-      isCopied,
-      setIsCopied,
       favoriteRecipes,
       setFavoriteRecipes,
       fetchFood,
@@ -105,8 +102,6 @@ export function ContextProvider({ children }) {
       setInProgressRecipes,
       doneRecipes,
       setDoneRecipes,
-      isCopied,
-      setIsCopied,
       favoriteRecipes,
       setFavoriteRecipes,
       fetchFood,
