@@ -1,3 +1,4 @@
+// ~/src/components/InputImg.jsx
 import React, { useContext, useEffect } from 'react';
 import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
@@ -63,34 +64,34 @@ function InputImg({
   };
 
   return (
-    <>
-      <div>
-        <input
-          data-testid="share-btn"
-          type="image"
-          src={ shareIcon }
-          alt="share-btn"
-          onClick={ () => copyLink() }
-        />
-        <input
-          data-testid="favorite-btn"
-          type="image"
-          id={
-            !favoriteRecipes.map((each) => each.id).includes(ask[2])
-              ? 'add'
-              : 'remove'
-          }
-          src={
-            !favoriteRecipes.map((each) => each.id).includes(ask[2])
-              ? favoriteIcon
-              : unFavoriteIcon
-          }
-          alt=""
-          onClick={ (evt) => toggleFavoriteRecipe(evt) }
-        />
-      </div>
+    <section
+      style={ { padding: '10px' } }
+    >
+      <input
+        data-testid="share-btn"
+        type="image"
+        src={ shareIcon }
+        alt="share-btn"
+        onClick={ () => copyLink() }
+      />
+      <input
+        data-testid="favorite-btn"
+        type="image"
+        id={
+          !favoriteRecipes.map((each) => each.id).includes(ask[2])
+            ? 'add'
+            : 'remove'
+        }
+        src={
+          !favoriteRecipes.map((each) => each.id).includes(ask[2])
+            ? favoriteIcon
+            : unFavoriteIcon
+        }
+        alt="favorite-btn"
+        onClick={ (evt) => toggleFavoriteRecipe(evt) }
+      />
       {isCopied && <span>Link copied!</span>}
-    </>
+    </section>
   );
 }
 

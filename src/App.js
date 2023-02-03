@@ -9,9 +9,9 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import RecipeDetails from './pages/RecipeDetails';
 import RecipesInProgress from './pages/RecipesInProgress';
-// import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 // import 'bootstrap/dist/css/bootstrap.min.css';
+// import './App.css';
 
 function App() {
   return (

@@ -1,3 +1,4 @@
+/// ~/src/pages/RecipeDetails.jsx
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import RecipesProvider from '../context/RecipesProvider';
