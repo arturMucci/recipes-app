@@ -6,7 +6,7 @@ import RecipeCard from '../components/RecipeCard';
 import ButtonCategoryFood from '../components/ButtonCategoryFood';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-// import '../styles/Recipes.css';
+import '../styles/Recipes.css';
 
 const doze = 12;
 const cinco = 5;

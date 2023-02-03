@@ -14,7 +14,7 @@ export default function RecipeDetails({ history, match: { params: { id }, url } 
     doneRecipes,
   } = useContext(RecipesProvider);
 
-  const [recipe, setRecipe] = useState(null);
+  const [recipe, setRecipe] = useState([]);
   const [recomendations, setRecomendations] = useState({});
 
   const splitUrl = useCallback(() => url.split('/'), [url]);
@@ -42,8 +42,7 @@ export default function RecipeDetails({ history, match: { params: { id }, url } 
     : 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
   const carouselTitleKey = `str${carouselKey[0]
-    .toUpperCase()}${carouselKey
-    .slice(1, carouselKey.length - 1)}`;
+    .toUpperCase()}${carouselKey.slice(1, carouselKey.length - 1)}`;
 
   useEffect(() => {
     fetch(lookUp)
@@ -70,10 +69,6 @@ export default function RecipeDetails({ history, match: { params: { id }, url } 
     fetchInProgressRecipes();
   }, [setInProgressRecipes]);
 
-  if (!recipe) {
-    return <span>Loading...</span>;
-  }
-
   const handleStartButton = ({ target }, ingredientRecipe) => {
     const newKey = {
       ...inProgressRecipes,
@@ -93,7 +88,7 @@ export default function RecipeDetails({ history, match: { params: { id }, url } 
       break;
     }
   };
-
+  // console.log(recipe);
   const ingredients = Object.entries(recipe)
     .filter((each) => each[0].includes('strIngredient'))
     .map((each) => each[1]);
@@ -121,6 +116,10 @@ export default function RecipeDetails({ history, match: { params: { id }, url } 
       break;
     }
   };
+
+  if (!recipe) {
+    return <span>Loading...</span>;
+  }
 
   return (
     <section

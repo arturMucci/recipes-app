@@ -1,6 +1,6 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
-import { Router, BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import { render } from '@testing-library/react';
 
 function withRouter(component, history) {
@@ -22,15 +22,4 @@ export function renderWithRouter(
     ...render(withRouter(component, history)),
     history,
   };
-}
-
-export function renderWithRouterAndRoutes(component) {
-  return (
-    <BrowserRouter>
-      <Switch>
-        <Route path="/meals" component={ component } />
-        <Route path="/drinks" component={ component } />
-      </Switch>
-    </BrowserRouter>
-  );
 }

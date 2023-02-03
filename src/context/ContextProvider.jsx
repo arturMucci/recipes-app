@@ -58,10 +58,6 @@ export function ContextProvider({ children }) {
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   }, [inProgressRecipes]);
 
-  useEffect(() => {
-
-  }, []);
-
   const GLOBAL_CONTEXT = useMemo(
     () => ({
       path,
