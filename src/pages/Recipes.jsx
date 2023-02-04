@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import RecipesProvider from '../context/RecipesProvider';
 import RecipeCard from '../components/RecipeCard';
 import ButtonCategoryFood from '../components/ButtonCategoryFood';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 import '../styles/Recipes.css';
 
 const doze = 12;
@@ -49,12 +51,15 @@ function Recipes({ match: { url } }) {
       });
   };
 
+  useEffect(() => {
+    fetchFood();
+    fetchListFood();
+  }, [fetchFood, fetchListFood]);
+
   return (
-    <div
-      className="recipes-container"
-      data-testid="recipes-container"
-    >
-      <div>
+    <div className="recipes-container">
+      <Header />
+      <div className="filter-container">
         { listFood.map((category, index) => (
           index < cinco && (
             <ButtonCategoryFood
@@ -67,6 +72,7 @@ function Recipes({ match: { url } }) {
         <button
           type="button"
           data-testid="All-category-filter"
+          className="category-btn"
           onClick={ () => fetchFood2() }
         >
           All
@@ -86,6 +92,7 @@ function Recipes({ match: { url } }) {
           </NavLink>
         )
       )) }
+      <Footer />
     </div>
   );
 }

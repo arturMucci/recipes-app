@@ -1,23 +1,11 @@
+/// ~/src/pages/RecipeDetails.jsx
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import RecipesProvider from '../context/RecipesProvider';
-import '../styles/RecipeDetails.css';
 import InputImg from '../components/InputImg';
+import '../styles/RecipeDetails.css';
 
 const SIX = 6;
-
-// {
-//   id,
-//   type: ask[1],
-//   nationality: recipe.strArea,
-//   category: recipe[ask[1] === 'meals' ? 'strCategory' : 'strAlcoholic'],
-//   alcoholicOrNot: ask[1] === 'meals' ? '' : recipe.strAlcoholic,
-//   name: recipe[nameKey],
-//   image: [
-//     recipe[imgSrcKey],
-//     recipe[imgAltKey],
-//   ],
-// },
 
 export default function RecipeDetails({ history, match: { params: { id }, url } }) {
   const {
@@ -26,7 +14,7 @@ export default function RecipeDetails({ history, match: { params: { id }, url } 
     doneRecipes,
   } = useContext(RecipesProvider);
 
-  const [recipe, setRecipe] = useState(null);
+  const [recipe, setRecipe] = useState([]);
   const [recomendations, setRecomendations] = useState({});
 
   const splitUrl = useCallback(() => url.split('/'), [url]);
@@ -54,8 +42,7 @@ export default function RecipeDetails({ history, match: { params: { id }, url } 
     : 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
   const carouselTitleKey = `str${carouselKey[0]
-    .toUpperCase()}${carouselKey
-    .slice(1, carouselKey.length - 1)}`;
+    .toUpperCase()}${carouselKey.slice(1, carouselKey.length - 1)}`;
 
   useEffect(() => {
     fetch(lookUp)
@@ -67,16 +54,27 @@ export default function RecipeDetails({ history, match: { params: { id }, url } 
       .then((data) => setRecomendations(data[carouselKey].slice(0, SIX)));
   }, [lookUp, key, search, carouselKey]);
 
-  if (!recipe) {
-    return <span>Loading...</span>;
-  }
+  useEffect(() => {
+    const fetchInProgressRecipes = () => {
+      if (!localStorage.inProgressRecipes) {
+        localStorage.setItem('inProgressRecipes', JSON.stringify({
+          meals: {},
+          drinks: {},
+        }));
+      } else {
+        const recipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+        setInProgressRecipes(recipes);
+      }
+    };
+    fetchInProgressRecipes();
+  }, [setInProgressRecipes]);
 
-  const handleStartButton = ({ target }) => {
+  const handleStartButton = ({ target }, ingredientRecipe) => {
     const newKey = {
       ...inProgressRecipes,
       [key]: {
         ...inProgressRecipes[key],
-        [id]: [],
+        [id]: ingredientRecipe.filter((each) => each !== ''),
       },
     };
 
@@ -102,16 +100,12 @@ export default function RecipeDetails({ history, match: { params: { id }, url } 
     switch (target.id) {
     case 'lesserThan':
       setCarouselIndex(
-        carouselIndex > 0
-          ? carouselIndex - 2
-          : recomendations.length - 2,
+        carouselIndex > 0 ? carouselIndex - 2 : recomendations.length - 2,
       );
       break;
     case 'greaterThan':
       setCarouselIndex(
-        carouselIndex < recomendations.length - 2
-          ? carouselIndex + 2
-          : 0,
+        carouselIndex < recomendations.length - 2 ? carouselIndex + 2 : 0,
       );
       break;
     default:
@@ -119,17 +113,21 @@ export default function RecipeDetails({ history, match: { params: { id }, url } 
     }
   };
 
+  if (recipe === null) return <span>Loading...</span>;
+
   return (
-    <section
-      className="recipe-details-container"
-    >
-      <InputImg url={ url } />
+    <section className="recipe-details-container">
+      <InputImg
+        url={ url }
+        recipe={ recipe }
+        ask={ ask }
+        nameKey={ nameKey }
+        imgKeys={ [imgSrcKey, imgAltKey] }
+      />
       <img
         data-testid="recipe-photo"
         className="recipe-photo"
-        src={
-          recipe[imgSrcKey]
-        }
+        src={ recipe[imgSrcKey] }
         alt={ recipe[imgAltKey] }
       />
       <h1
@@ -145,19 +143,16 @@ export default function RecipeDetails({ history, match: { params: { id }, url } 
         {recipe[ask[1] === 'meals' ? 'strCategory' : 'strAlcoholic']}
       </p>
       <ol>
-        {
-          ingredients.map((each, index) => (
-            (each !== '' && each !== null) && (
-              <li
-                key={ `strIngredient${index}` }
-                data-testid={ `${index}-ingredient-name-and-measure` }
-                className="ingredient-name-and-measure"
-              >
-                {`${each} - ${measure[index] ?? ''}`}
-              </li>
-            )
-          ))
-        }
+        {ingredients.map((each, index) => (
+          (each !== '' && each !== null) && (
+            <li
+              key={ `strIngredient${index}` }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              className="ingredient-name-and-measure"
+            >
+              {`${each} - ${measure[index] ?? ''}`}
+            </li>
+          )))}
       </ol>
       <p
         data-testid="instructions"
@@ -166,26 +161,22 @@ export default function RecipeDetails({ history, match: { params: { id }, url } 
         {recipe.strInstructions}
       </p>
       <section className="recipe-video">
-        {
-          ask[1] === 'meals' && (
-            <iframe
-              data-testid="video"
-              width="560"
-              height="315"
-              src={ `${recipe.strYoutube.replace('watch?v=', 'embed/')}` }
-              title="YouTube video player"
-              allow="accelerometer;
-                autoplay;
-                clipboard-write;
-                encrypted-media;
-                gyroscope;
-                picture-in-picture;"
-              allowFullScreen
-            />
-          )
-        }
+        { ask[1] === 'meals' && (
+          <iframe
+            data-testid="video"
+            width="560"
+            height="315"
+            src={
+              recipe.strYoutube
+                ? recipe.strYoutube.replace('watch?v=', 'embed/')
+                : ''
+            }
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
+              picture-in-picture;"
+            allowFullScreen
+          />)}
       </section>
-
       <div className="carousel-container">
         <button
           className="recomendation-btn"
@@ -196,32 +187,28 @@ export default function RecipeDetails({ history, match: { params: { id }, url } 
           &lt;
         </button>
         <div className="carousel">
-          {
-            recomendations.length > 0
-              && (
-                recomendations
-                  .map((each, index) => (
-                    <div
-                      data-testid={ `${index}-recommendation-card` }
-                      key={ `${index}${each[`str${carouselKey}`]}` }
-                      className="inner"
-                      style={ { transform: `translateX(${position[carouselIndex]})` } }
-                    >
-                      <img
-                        className="carousel-item-img"
-                        src={ each[carouselImgKey] }
-                        alt={ each[`str${carouselKey}`] }
-                      />
-                      <span
-                        data-testid={ `${index}-recommendation-title` }
-                        className="recommendation-title"
-                      >
-                        {each[carouselTitleKey]}
-                      </span>
-                    </div>
-                  ))
-              )
-          }
+          {recomendations.length > 0 && (
+            recomendations
+              .map((each, index) => (
+                <div
+                  data-testid={ `${index}-recommendation-card` }
+                  key={ `${index}${each[`str${carouselKey}`]}` }
+                  className="inner"
+                  style={ { transform: `translateX(${position[carouselIndex]})` } }
+                >
+                  <img
+                    className="carousel-item-img"
+                    src={ each[carouselImgKey] }
+                    alt={ each[`str${carouselKey}`] }
+                  />
+                  <span
+                    data-testid={ `${index}-recommendation-title` }
+                    className="recommendation-title"
+                  >
+                    {each[carouselTitleKey]}
+                  </span>
+                </div>
+              )))}
         </div>
         <button
           className="recomendation-btn"
@@ -238,11 +225,10 @@ export default function RecipeDetails({ history, match: { params: { id }, url } 
           className="start-recipe-btn"
           id="start-recipe"
           type="button"
-          onClick={ (evt) => handleStartButton(evt) }
+          onClick={ (evt) => handleStartButton(evt, ingredients) }
         >
           {commendButton ? 'Start Recipe' : 'Continue Recipe'}
-        </button>
-      )}
+        </button>)}
     </section>
   );
 }

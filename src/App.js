@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import Login from './pages/Login';
-import Header from './components/Header';
 import Recipes from './pages/Recipes';
 import RecipesDrinks from './pages/RecipesDrinks';
 import Profile from './pages/Profile';
@@ -10,16 +9,14 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import RecipeDetails from './pages/RecipeDetails';
 import RecipesInProgress from './pages/RecipesInProgress';
-import Footer from './components/Footer';
-// import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 // import 'bootstrap/dist/css/bootstrap.min.css';
+// import './App.css';
 
 function App() {
   return (
     <ContextProvider>
       <BrowserRouter>
-        <Header />
         <Switch>
           <Route exact path="/" component={ Login } />
           <Route exact path="/profile" component={ Profile } />
@@ -32,7 +29,6 @@ function App() {
           <Route exact path="/meals/:id/in-progress" component={ RecipesInProgress } />
           <Route exact path="/drinks/:id/in-progress" component={ RecipesInProgress } />
         </Switch>
-        <Footer />
       </BrowserRouter>
     </ContextProvider>
   );

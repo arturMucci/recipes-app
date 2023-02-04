@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import RecipesProvider from '../context/RecipesProvider';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 function Profile() {
   const user = localStorage.getItem('user');
@@ -13,6 +14,7 @@ function Profile() {
 
   return (
     <div>
+      <Header />
       <fieldset>
         <legend>Profile</legend>
         <p
