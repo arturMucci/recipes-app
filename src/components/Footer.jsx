@@ -3,6 +3,8 @@ import mealIcon from '../images/mealIcon.svg';
 import drinkIcon from '../images/drinkIcon.svg';
 import '../styles/Footer.css';
 
+// oi eu sou o goku!
+
 function Footer() {
   return (
     <div
