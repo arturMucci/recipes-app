@@ -29,7 +29,11 @@ export default function DoneRecipeCard({
   } = data;
 
   const actualUrl = window.location.href;
-  const detailsUrl = actualUrl.replace('favorite-recipes', `${type}s/${id}`);
+  const teste = actualUrl === 'http://localhost:3000/done-recipes'
+    ? 'done-recipes'
+    : 'favorite-recipes';
+
+  const detailsUrl = actualUrl.replace(teste, `${type}s/${id}`);
   const copyLink = () => {
     if (!isCopied) {
       setIsCopied(true);
