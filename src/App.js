@@ -9,7 +9,7 @@ import { ContextProvider } from './context/ContextProvider';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import RecipeDetails from './pages/RecipeDetails';
-import RecipesInProgress from './pages/RecipesInProgress';
+import RecipeInProgress from './pages/RecipeInProgress';
 import Footer from './components/Footer';
 // import './App.css';
 // import rockGlass from './images/rockGlass.svg';
@@ -29,8 +29,8 @@ function App() {
           <Route exact path="/drinks" component={ RecipesDrinks } />
           <Route exact path="/meals/:id" component={ RecipeDetails } />
           <Route exact path="/drinks/:id" component={ RecipeDetails } />
-          <Route exact path="/meals/:id/in-progress" component={ RecipesInProgress } />
-          <Route exact path="/drinks/:id/in-progress" component={ RecipesInProgress } />
+          <Route exact path="/meals/:id/in-progress" component={ RecipeInProgress } />
+          <Route exact path="/drinks/:id/in-progress" component={ RecipeInProgress } />
         </Switch>
         <Footer />
       </BrowserRouter>

@@ -83,7 +83,7 @@ export default function RecipeDetails({ history, match: { params: { id }, url } 
     switch (target.id) {
     case 'start-recipe':
       setInProgressRecipes(newKey);
-      localStorage.setItem('inProgressRecipes', JSON.stringify(newKey));
+      // localStorage.setItem('inProgressRecipes', JSON.stringify(newKey));
       history.push(`${url}/in-progress`);
       break;
     default:
