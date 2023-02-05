@@ -6,7 +6,7 @@ import { render } from '@testing-library/react';
 function withRouter(component, history) {
   return (
     <Router history={ history }>
-      { component }
+      {component}
     </Router>
   );
 }

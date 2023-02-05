@@ -8,16 +8,18 @@ export default function RecipeCard({ index, recipe, url }) {
   return (
     <div
       data-testid={ `${index}-recipe-card` }
-      id="card"
+      className="recipe-card"
     >
       <img
         data-testid={ `${index}-card-img` }
+        className="recipe-img"
         src={ recipe[`str${key}Thumb`].replace('\\', '') }
         alt={ recipe[`str${key}`] }
         style={ { width: '200px' } }
       />
       <span
         data-testid={ `${index}-card-name` }
+        className="recipe-title"
       >
         { recipe[`str${key}`] }
       </span>

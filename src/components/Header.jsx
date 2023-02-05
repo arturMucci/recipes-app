@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import RecipesProvider from '../context/RecipesProvider';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+// import '../styles/Header.css';
 
 function Header() {
   const history = useHistory();
@@ -25,7 +26,9 @@ function Header() {
   };
 
   const { pathname } = history.location;
+
   let showProfile = true;
+
   if (
     pathname === '/'
     || pathname.startsWith('/meals/')
@@ -34,8 +37,10 @@ function Header() {
     || pathname.startsWith('drinks/:id/')
   ) {
     showProfile = true;
+
     return null;
   }
+
   if (
     pathname === '/profile'
     || pathname === '/done-recipes'
@@ -43,34 +48,43 @@ function Header() {
   ) {
     showProfile = true;
     return (
-      <div>
+      <div className="header-container">
         <h1 data-testid="page-title">{title}</h1>
-        <button type="button" onClick={ sendToProfile }>
-          <img src={ profileIcon } alt="profile" data-testid="profile-top-btn" />
-        </button>
+        <div className="btn-container">
+          <button type="button" onClick={ sendToProfile }>
+            <img src={ profileIcon } alt="profile" data-testid="profile-top-btn" />
+          </button>
+        </div>
       </div>
     );
   }
 
   if (showProfile) {
     return (
-      <div>
+      <div className="header-container">
         <h1 data-testid="page-title">{title}</h1>
-        <button type="button" onClick={ sendToProfile }>
-          <img src={ profileIcon } alt="profile" data-testid="profile-top-btn" />
-        </button>
-        <div>
-          {(searching.clicked) && (
-            <label htmlFor="search-input">
-              <input
-                type="text"
-                name="search-input"
-                onChange={ handleSearch }
-                data-testid="search-input"
-              />
-            </label>
-          )}
+        <div className="btn-container">
           <button
+            className="header-btn"
+            type="button"
+            onClick={ sendToProfile }
+          >
+            <img src={ profileIcon } alt="profile" data-testid="profile-top-btn" />
+          </button>
+          {
+            (searching.clicked) && (
+              <label htmlFor="search-input">
+                <input
+                  type="text"
+                  name="search-input"
+                  onChange={ handleSearch }
+                  data-testid="search-input"
+                />
+              </label>
+            )
+          }
+          <button
+            className="header-btn"
             type="button"
             onClick={ handleClick }
           >
