@@ -4,75 +4,75 @@ import userEvent from '@testing-library/user-event';
 import App from '../App';
 import { renderWithRouter } from './helpers/renderWith';
 import meals from '../../cypress/mocks/meals';
-import drinks from '../../cypress/mocks/drinks';
+// import drinks from '../../cypress/mocks/drinks';
 import { ONE_CHARACTER } from '../components/SearchBar';
 
 const EMAIL_INPUT_TESTID = 'email-input';
 const PASSWORD_INPUT_TESTID = 'password-input';
 const BUTTON_TEST_ID = 'login-submit-btn';
 
-const mockFetch = jest.fn((url) => Promise.resolve({
-  json: async () => {
-    console.log('Entrou no mock');
-    switch (url) {
-    case 'https://www.themealdb.com/api/json/v1/1/search.php?s=sugar':
-      return Promise.resolve({ meals: [{
-        strMeal: 'Apam balik',
-        strMealThumb: 'https://www.themealdb.com/images/media/meals/adxcbq1619787919.jpg',
-      }] });
+// const mockFetch = jest.fn((url) => Promise.resolve({
+//   json: async () => {
+//     console.log('Entrou no mock');
+//     switch (url) {
+//     case 'https://www.themealdb.com/api/json/v1/1/search.php?s=sugar':
+//       return Promise.resolve({ meals: [{
+//         strMeal: 'Apam balik',
+//         strMealThumb: 'https://www.themealdb.com/images/media/meals/adxcbq1619787919.jpg',
+//       }] });
 
-    case 'https://www.themealdb.com/api/json/v1/1/filter.php?c=Beef':
-      return Promise.resolve({ meals: [{
-        strMeal: 'Beef and Mustard Pie',
-        strMealThumb: 'https://www.themealdb.com/images/media/meals/sytuqu1511553755.jpg',
-        idMeal: '52874',
-      }] });
-    case 'https://www.themealdb.com/api/json/v1/1/list.php?c=list':
-      return Promise.resolve({
-        meals: [
-          { strCategory: 'Beef' },
-          { strCategory: 'Breakfast' },
-          { strCategory: 'Chicken' },
-          { strCategory: 'Dessert' },
-          { strCategory: 'Goat' },
-        ],
-      });
-    case 'https://www.themealdb.com/api/json/v1/1/search.php?s=':
-      return Promise.resolve(meals);
+//     case 'https://www.themealdb.com/api/json/v1/1/filter.php?c=Beef':
+//       return Promise.resolve({ meals: [{
+//         strMeal: 'Beef and Mustard Pie',
+//         strMealThumb: 'https://www.themealdb.com/images/media/meals/sytuqu1511553755.jpg',
+//         idMeal: '52874',
+//       }] });
+//     case 'https://www.themealdb.com/api/json/v1/1/list.php?c=list':
+//       return Promise.resolve({
+//         meals: [
+//           { strCategory: 'Beef' },
+//           { strCategory: 'Breakfast' },
+//           { strCategory: 'Chicken' },
+//           { strCategory: 'Dessert' },
+//           { strCategory: 'Goat' },
+//         ],
+//       });
+//     case 'https://www.themealdb.com/api/json/v1/1/search.php?s=':
+//       return Promise.resolve(meals);
 
-    default:
-      return Promise.resolve(meals);
-    }
-  },
-}));
+//     default:
+//       return Promise.resolve(meals);
+//     }
+//   },
+// }));
 
-const mockFetch2 = jest.fn((url) => Promise.resolve({
-  json: async () => {
-    if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?s=pizza') {
-      return Promise.resolve({ meals: [{
-        strMeal: 'Apam balik',
-        strMealThumb: 'https://www.themealdb.com/images/media/meals/adxcbq1619787919.jpg',
-      }] });
-    }
-    if (url === 'https://www.themealdb.com/api/json/v1/1/filter.php?c=Beef') {
-      return Promise.resolve({ meals: [{
-        strMeal: 'Beef and Mustard Pie',
-        strMealThumb: 'https://www.themealdb.com/images/media/meals/sytuqu1511553755.jpg',
-        idMeal: '52874',
-      }] });
-    }
-    if (url === 'https://www.themealdb.com/api/json/v1/1/list.php?c=list') {
-      return Promise.resolve({ meals: [
-        { strCategory: 'Beef' },
-        { strCategory: 'Breakfast' },
-        { strCategory: 'Chicken' },
-        { strCategory: 'Dessert' },
-        { strCategory: 'Goat' },
-      ] });
-    }
+// const mockFetch2 = jest.fn((url) => Promise.resolve({
+//   json: async () => {
+//     if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?s=pizza') {
+//       return Promise.resolve({ meals: [{
+//         strMeal: 'Apam balik',
+//         strMealThumb: 'https://www.themealdb.com/images/media/meals/adxcbq1619787919.jpg',
+//       }] });
+//     }
+//     if (url === 'https://www.themealdb.com/api/json/v1/1/filter.php?c=Beef') {
+//       return Promise.resolve({ meals: [{
+//         strMeal: 'Beef and Mustard Pie',
+//         strMealThumb: 'https://www.themealdb.com/images/media/meals/sytuqu1511553755.jpg',
+//         idMeal: '52874',
+//       }] });
+//     }
+//     if (url === 'https://www.themealdb.com/api/json/v1/1/list.php?c=list') {
+//       return Promise.resolve({ meals: [
+//         { strCategory: 'Beef' },
+//         { strCategory: 'Breakfast' },
+//         { strCategory: 'Chicken' },
+//         { strCategory: 'Dessert' },
+//         { strCategory: 'Goat' },
+//       ] });
+//     }
 
-    return Promise.resolve(meals);
-  } }));
+//     return Promise.resolve(meals);
+//   } }));
 
 describe('o componente SearchBar', () => {
   test('se o usuário consegue pesquisar por alguma receita de meal', async () => {

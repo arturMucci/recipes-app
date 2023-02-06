@@ -110,4 +110,6 @@ function SearchBar(props) {
   );
 }
 
+SearchBar.propTypes = PropTypes.shape({}).isRequired;
+
 export default SearchBar;
