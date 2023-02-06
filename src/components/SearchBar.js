@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import RecipesProvider from '../context/RecipesProvider';
 import { infoDrink } from '../services/drinksAPI';
 import { infoFood } from '../services/foodAPI';
