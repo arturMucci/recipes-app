@@ -27,11 +27,15 @@ describe('A página Recipe In Progress contém', () => {
     history.push('/52771/in-progress');
   });
 
-  test('um elemento que mostra a foto da receita', () => {
+  test('elementos de uma receita de comida', () => {
     const recipePhoto = screen.getByTestId('recipe-photo');
-    expect(recipePhoto).toBeInTheDocument();
-
     const recipeImgSrc = 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg';
+    const recipeTitle = screen.getByTestId('recipe-title');
+    const shareButton = screen.getByTestId('share-btn');
+
+    expect(recipePhoto).toBeInTheDocument();
     expect(recipePhoto.src).toBe(recipeImgSrc);
+    expect(recipeTitle).toBeInTheDocument();
+    expect(shareButton).toBeInTheDocument();
   });
 });

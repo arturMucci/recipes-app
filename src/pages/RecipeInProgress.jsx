@@ -5,7 +5,7 @@ import '../styles/RecipeInProgress.css';
 import ButtonFinishRecipe from '../components/ButtonFinishRecipe';
 import IngredientsCheckboxes from '../components/IngredientsCheckboxes';
 import {
-  isRecipeInProgress,
+  isRecipeInProgressInLocalStorage,
   checkInProgressIngredients,
   objectIsEmpty,
 } from '../services';
@@ -15,12 +15,10 @@ export default function RecipeInProgress({ match: { params: { id }, url } }) {
   const [disableFinishRecipeButton, setDisableFinishRecipeButton] = useState(true);
   const [loading, setLoading] = useState(true);
 
-  const getRecipeType = useCallback(() => {
-    const splitUrl = url.split('/');
-    return (splitUrl[1]);
-  }, [url]);
+  const getRecipeType = useCallback(() => url.split('/'), [url]);
 
-  const recipeType = getRecipeType();
+  const splitUrl = getRecipeType();
+  const recipeType = splitUrl[1];
   const recipeIsMeal = (recipeType === 'meals');
 
   const endpoint = (recipeIsMeal)
@@ -50,7 +48,7 @@ export default function RecipeInProgress({ match: { params: { id }, url } }) {
         localStorageRecipes = inProgressRecipes.drinks;
       }
 
-      if (isRecipeInProgress(recipeId, localStorageRecipes)) {
+      if (isRecipeInProgressInLocalStorage(recipeId, recipeType)) {
         const { checkedIngredientsIds } = localStorageRecipes.find(
           (localStorageRecipe) => localStorageRecipe.id === recipeId,
         );
@@ -58,7 +56,7 @@ export default function RecipeInProgress({ match: { params: { id }, url } }) {
         checkInProgressIngredients(checkedIngredientsIds);
       }
     }
-  }, [recipeIsMeal, recipe.idMeal, recipe.idDrink]);
+  }, [recipeIsMeal, recipe.idMeal, recipe.idDrink, recipeType]);
 
   const markedCheckboxesVerification = () => {
     const ingredientsCheckboxes = document.getElementsByTagName('label');
@@ -84,7 +82,7 @@ export default function RecipeInProgress({ match: { params: { id }, url } }) {
             <legend>Recipe In Progress</legend>
             <InputImg
               recipe={ recipe }
-              ask={ recipeType }
+              ask={ splitUrl }
               nameKey={ nameKey }
               imgKeys={ [imgSrcKey, nameKey] }
             />
@@ -108,7 +106,6 @@ export default function RecipeInProgress({ match: { params: { id }, url } }) {
               recipe={ recipe }
               recipeIsMeal={ recipeIsMeal }
               markedCheckboxesVerification={ markedCheckboxesVerification }
-              isRecipeInProgress={ isRecipeInProgress }
               checkIfRecipeIsAlreadyInProgress={ checkIfRecipeIsAlreadyInProgress }
             />
             <div

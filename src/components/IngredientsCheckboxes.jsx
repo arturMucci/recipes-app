@@ -6,6 +6,7 @@ import {
   arrayIsEmpty,
   objectIsEmpty,
   getRecipeIngredients,
+  isRecipeInProgressInLocalStorage,
 } from '../services';
 
 export default function IngredientsCheckboxes(
@@ -13,7 +14,6 @@ export default function IngredientsCheckboxes(
     recipe,
     recipeIsMeal,
     markedCheckboxesVerification,
-    isRecipeInProgress,
     checkIfRecipeIsAlreadyInProgress,
   },
 ) {
@@ -55,7 +55,7 @@ export default function IngredientsCheckboxes(
           inProgressRecipeObject,
         ],
       };
-    } else if (!isRecipeInProgress(recipe.idMeal, localStorageMeals)) {
+    } else if (!(isRecipeInProgressInLocalStorage(recipe.idMeal, 'meals'))) {
       inProgressMeals = {
         drinks: [...localStorageDrinks],
         meals: [
@@ -108,7 +108,7 @@ export default function IngredientsCheckboxes(
         ],
         meals: [...localStorageMeals],
       };
-    } else if (!isRecipeInProgress(recipe.idDrink, localStorageDrinks)) {
+    } else if (!isRecipeInProgressInLocalStorage(recipe.idDrink, 'drinks')) {
       inProgressDrinks = {
         drinks: [
           ...localStorageDrinks,
