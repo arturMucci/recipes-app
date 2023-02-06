@@ -1,0 +1,83 @@
+.login-container {
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 16.5%;
+  line-height: 20.5px;
+  text-align: center;
+}
+
+.login-header {
+  background-color: #41197f;
+  height: 422px;
+  position: absolute;
+  width: 360px;
+}
+
+.recipes-app-logo {
+  height: 157.25px;
+  left: 81px;
+  position: absolute;
+  top: 79.17px;
+  width: 198px;
+}
+
+.tomato-logo {
+  height: 279px;
+  left: -180px;
+  position: absolute;
+  top: 241px;
+  width: 700px;
+}
+
+.login-title {
+  color: #41197f;
+  height: 21px;
+  left: 89px;
+  position: absolute;
+  text-transform: uppercase;
+  top: 524px;
+  width: 182px;
+}
+
+.email-input {
+  border: 1px solid #41197f;
+  border-radius: 5px;
+  height: 40px;
+  left: 42px;
+  padding: 0 10px;
+  position: absolute;
+  top: 564px;
+  width: 276px;
+}
+
+.email-input::placeholder {
+  color: #41197f;
+}
+
+.password-input {
+  border: 1px solid #41197f;
+  border-radius: 5px;
+  height: 40px;
+  left: 42px;
+  padding: 0 10px;
+  position: absolute;
+  top: 613px;
+  width: 276px;
+}
+
+.password-input::placeholder {
+  color: #41197f;
+}
+
+.login-submit-btn {
+  background-color: #fcc436;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  height: 40px;
+  left: 42px;
+  position: absolute;
+  top: 662px;
+  width: 276px;
+}

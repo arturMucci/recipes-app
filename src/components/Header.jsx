@@ -3,7 +3,12 @@ import { useHistory } from 'react-router-dom';
 import RecipesProvider from '../context/RecipesProvider';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-// import '../styles/Header.css';
+import MealsPageLogo from '../images/MealsPageLogo.svg';
+import DrinksPageLogo from '../images/DrinksPageLogo.svg';
+import RecipesAppLogoHeader from '../images/RecipesAppLogoHeader.svg';
+import RecipesWord from '../images/RecipesWord.svg';
+import AppWord from '../images/AppWord.svg';
+import '../styles/Header.css';
 
 function Header() {
   const history = useHistory();
@@ -48,54 +53,103 @@ function Header() {
   ) {
     showProfile = true;
     return (
-      <div className="header-container">
-        <h1 data-testid="page-title">{title}</h1>
-        <div className="btn-container">
+      <div>
+        <div>
           <button type="button" onClick={ sendToProfile }>
             <img src={ profileIcon } alt="profile" data-testid="profile-top-btn" />
           </button>
         </div>
+        <h1 data-testid="page-title">{title}</h1>
       </div>
     );
   }
 
   if (showProfile) {
     return (
-      <div className="header-container">
-        <h1 data-testid="page-title">{title}</h1>
-        <div className="btn-container">
-          <button
-            className="header-btn"
-            type="button"
-            onClick={ sendToProfile }
-          >
-            <img src={ profileIcon } alt="profile" data-testid="profile-top-btn" />
-          </button>
-          {
-            (searching.clicked) && (
-              <label htmlFor="search-input">
-                <input
-                  type="text"
-                  name="search-input"
-                  onChange={ handleSearch }
-                  data-testid="search-input"
-                />
-              </label>
-            )
-          }
-          <button
-            className="header-btn"
-            type="button"
-            onClick={ handleClick }
-          >
+      <header>
+        <div className="logo-container">
+          <section>
             <img
-              src={ searchIcon }
-              alt="search"
-              data-testid="search-top-btn"
+              className="header-recipesApp-logo"
+              src={ RecipesAppLogoHeader }
+              alt="recipes app logo"
             />
-          </button>
+            <div>
+              <img
+                className="header-recipes-word"
+                src={ RecipesWord }
+                alt=""
+              />
+              <img
+                className="header-app-word"
+                src={ AppWord }
+                alt=""
+              />
+            </div>
+          </section>
+          <section>
+            <button
+              className="header-search-btn"
+              type="button"
+              onClick={ handleClick }
+            >
+              <img
+                data-testid="search-top-btn"
+                src={ searchIcon }
+                alt="search"
+              />
+            </button>
+            <button
+              className="header-profile-btn"
+              type="button"
+              onClick={ sendToProfile }
+            >
+              <img
+                src={ profileIcon }
+                alt="profile"
+                data-testid="profile-top-btn"
+              />
+            </button>
+          </section>
         </div>
-      </div>
+        <div>
+          <section>
+            {title === 'Meals'
+              ? (
+                <img
+                  className="page-logo"
+                  src={ MealsPageLogo }
+                  alt="meals page logo"
+                />
+              ) : (
+                <img
+                  src={ DrinksPageLogo }
+                  alt="meals page logo"
+                />
+              )}
+            <h1
+              data-testid="meals-page-title"
+              className="recipe-page-title"
+            >
+              {title}
+            </h1>
+          </section>
+          <section className="searchbar-container">
+            {
+              (searching.clicked) && (
+                <label htmlFor="search-input">
+                  <input
+                    type="text"
+                    name="search-input"
+                    onChange={ handleSearch }
+                    data-testid="search-input"
+                  />
+                </label>
+              )
+            }
+          </section>
+        </div>
+      </header>
     );
   }
 }

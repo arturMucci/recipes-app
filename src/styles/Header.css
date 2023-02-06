@@ -1,19 +1,77 @@
-.header-container {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
+header {
+  height: 147px;
 }
 
-.btn-container {
-  display: flex;
-  margin: 10px;
+.logo-container {
+  background-color: #fcdc36;
+  height: 52px;
+  width: 360px;
 }
 
-.header-btn {
-  background-color: orange;
-  border: 1px solid black;
-  border-radius: 10px;
-  margin: 5px;
-  padding: 10px;
+.header-recipesApp-logo {
+  height: 39.28px;
+  left: 26px;
+  position: absolute;
+  top: 6px;
+  width: 42.6px;
+}
+
+.header-recipes-word {
+  height: 13.39px;
+  left: 89.37px;
+  position: absolute;
+  top: 20.78px;
+  width: 71.62px;
+}
+
+.header-app-word {
+  height: 13.06px;
+  left: 160px;
+  position: absolute;
+  top: 24.7px;
+  width: 32.91px;
+}
+
+.header-search-btn {
+  background-color: inherit;
+  border: none;
+  height: 26.85px;
+  left: 267px;
+  position: absolute;
+  top: 14px;
+  width: 26.85px;
+}
+
+.header-profile-btn {
+  background-color: inherit;
+  border: none;
+  height: 28.71px;
+  left: 310px;
+  position: absolute;
+  top: 13px;
+  width: 28.71px;
+}
+
+.page-logo {
+  height: 29.53px;
+  left: 160px;
+  position: absolute;
+  top: 83px;
+  width: 40.33px;
+}
+
+.recipe-page-title {
+  color: #41197f;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 900;
+  height: 21px;
+  left: 107px;
+  letter-spacing: 0.105em;
+  line-height: 20px;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  top: 126px;
+  width: 147px;
 }

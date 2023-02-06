@@ -6,6 +6,7 @@ import RecipeCard from '../components/RecipeCard';
 import ButtonCategoryFood from '../components/ButtonCategoryFood';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import AllLogo from '../images/AllLogo.svg';
 import '../styles/Recipes.css';
 
 const doze = 12;
@@ -57,9 +58,17 @@ function Recipes({ match: { url } }) {
   }, [fetchFood, fetchListFood]);
 
   return (
-    <div className="recipes-container">
+    <div className="recipes-page-container">
       <Header />
-      <div className="filter-container">
+      <div className="category-container">
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => fetchFood2() }
+          style={ { backgroundColor: 'inherit', border: 'none' } }
+        >
+          <img src={ AllLogo } alt="AllLogo" />
+        </button>
         { listFood.map((category, index) => (
           index < cinco && (
             <ButtonCategoryFood
@@ -69,29 +78,26 @@ function Recipes({ match: { url } }) {
             />
           )
         )) }
-        <button
-          type="button"
-          data-testid="All-category-filter"
-          className="category-btn"
-          onClick={ () => fetchFood2() }
-        >
-          All
-        </button>
       </div>
-      { recipesFood.map((recipe, index) => (
-        index < doze && (
-          <NavLink
-            key={ recipe.idMeal }
-            to={ `meals/${recipe.idMeal}` }
-          >
-            <RecipeCard
-              recipe={ recipe }
-              index={ index }
-              url={ url }
-            />
-          </NavLink>
-        )
-      )) }
+      <div className="recipes-Container">
+        {
+          recipesFood.map((recipe, index) => (
+            index < doze && (
+              <NavLink
+                key={ recipe.idMeal }
+                to={ `meals/${recipe.idMeal}` }
+                className="recipe-card-link"
+              >
+                <RecipeCard
+                  recipe={ recipe }
+                  index={ index }
+                  url={ url }
+                />
+              </NavLink>
+            )
+          ))
+        }
+      </div>
       <Footer />
     </div>
   );

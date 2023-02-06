@@ -3,34 +3,27 @@ import mealIcon from '../images/mealIcon.svg';
 import drinkIcon from '../images/drinkIcon.svg';
 import '../styles/Footer.css';
 
-// oi eu sou o goku!
-
 function Footer() {
   return (
-    <div
+    <footer
       data-testid="footer"
-      className="footer"
+      className="footer-container"
     >
-      <fieldset>
-        <legend>Footer</legend>
-        <footer>
-          <a href="/drinks">
-            <img
-              src={ drinkIcon }
-              alt="drink icon"
-              data-testid="drinks-bottom-btn"
-            />
-          </a>
-          <a href="/meals">
-            <img
-              src={ mealIcon }
-              alt="meal icon"
-              data-testid="meals-bottom-btn"
-            />
-          </a>
-        </footer>
-      </fieldset>
-    </div>
+      <a href="/drinks">
+        <img
+          src={ drinkIcon }
+          alt="drink icon"
+          data-testid="drinks-bottom-btn"
+        />
+      </a>
+      <a href="/meals">
+        <img
+          src={ mealIcon }
+          alt="meal icon"
+          data-testid="meals-bottom-btn"
+        />
+      </a>
+    </footer>
   );
 }
 

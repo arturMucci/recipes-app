@@ -11,7 +11,7 @@ import RecipeDetails from './pages/RecipeDetails';
 import RecipesInProgress from './pages/RecipesInProgress';
 // import rockGlass from './images/rockGlass.svg';
 // import 'bootstrap/dist/css/bootstrap.min.css';
-// import './App.css';
+import './styles/App.css';
 
 function App() {
   return (

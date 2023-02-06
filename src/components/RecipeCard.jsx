@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../styles/RecipeCard.css';
 
 export default function RecipeCard({ index, recipe, url }) {
   const split = url.split('/');
@@ -8,18 +9,17 @@ export default function RecipeCard({ index, recipe, url }) {
   return (
     <div
       data-testid={ `${index}-recipe-card` }
-      className="recipe-card"
+      className="recipe-card-container"
     >
       <img
         data-testid={ `${index}-card-img` }
         className="recipe-img"
         src={ recipe[`str${key}Thumb`].replace('\\', '') }
         alt={ recipe[`str${key}`] }
-        style={ { width: '200px' } }
       />
       <span
         data-testid={ `${index}-card-name` }
-        className="recipe-title"
+        className="recipe-name"
       >
         { recipe[`str${key}`] }
       </span>
