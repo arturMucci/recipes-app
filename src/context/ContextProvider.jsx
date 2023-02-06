@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useCallback } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import RecipesProvider from './RecipesProvider';
 
@@ -20,8 +20,8 @@ export function ContextProvider({ children }) {
   });
 
   const [inProgressRecipes, setInProgressRecipes] = useState({
-    meals: {},
-    drinks: {},
+    meals: [],
+    drinks: [],
   });
 
   const fetchFood = useCallback(async () => {
@@ -52,9 +52,9 @@ export function ContextProvider({ children }) {
       .then((data) => setListDrink(data.drinks));
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-  }, [inProgressRecipes]);
+  // useEffect(() => {
+  //   localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+  // }, [inProgressRecipes]);
 
   const GLOBAL_CONTEXT = useMemo(
     () => ({
@@ -91,11 +91,11 @@ export function ContextProvider({ children }) {
       recipesFood,
       recipesDrink,
       setRecipesFood,
-      setRecipesDrink,
       listDrink,
       listFood,
       filterDrink,
       setFilterDrink,
+      setRecipesDrink,
       searching,
       setSearching,
       inProgressRecipes,

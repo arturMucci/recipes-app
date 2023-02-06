@@ -14,6 +14,7 @@ const cinco = 5;
 function RecipesDrinks({ match: { url } }) {
   const {
     recipesDrink,
+    setTitle,
     listDrink,
     setRecipesDrink,
     fetchDrink,
@@ -21,7 +22,6 @@ function RecipesDrinks({ match: { url } }) {
 
   const [isFiltered, setIsFiltered] = useState(true);
 
-  const { setTitle } = useContext(RecipesProvider);
   useEffect(() => {
     setTitle('Drinks');
   }, [setTitle]);

@@ -1,0 +1,8 @@
+.recipe-photo {
+  border-radius: 5%;
+  width: 150px;
+}
+
+.done-step {
+  text-decoration: line-through solid black;
+}

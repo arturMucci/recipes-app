@@ -1,6 +1,5 @@
 import React from 'react';
 import { screen, waitFor } from '@testing-library/react';
-// import { act } from 'react-dom/test-utils';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import { renderWithRouter } from './helpers/renderWith';
@@ -17,16 +16,12 @@ describe('O componente Header', () => {
     const password = screen.getByTestId(PASSWORD_INPUT_TESTID);
     const button = screen.getByTestId(BUTTON_TEST_ID);
 
-    // act(() => {
     userEvent.type(email, 'trybe@test.com');
     userEvent.type(password, '1234567');
     userEvent.click(button);
-    // });
 
-    // act(() => {
     const searchButton = screen.getByTestId('search-top-btn');
     userEvent.click(searchButton);
-    // });
 
     const searchInput = screen.getByTestId('search-input');
     const profileIcon = screen.getByRole('img', { name: /profile/i });
@@ -34,14 +29,125 @@ describe('O componente Header', () => {
     expect(searchInput).toBeInTheDocument();
     expect(profileIcon).toBeInTheDocument();
 
-    // act(() => {
-    //   userEvent.click(profileIcon);
-    //   history.push('/profile');
-    // });
-
     userEvent.click(profileIcon);
     waitFor(() => expect(history.location.pathname).toBe('/profile'));
+  });
+});
 
-    // expect(history.location.pathname).toBe('/profile');
+describe('O componente Header aparece apenas nas páginas', () => {
+  const headerClass = '.header-container';
+
+  test('Profile', async () => {
+    const { history } = renderWithRouter(<App />);
+
+    waitFor(() => {
+      history.push('/profile');
+    });
+
+    const header = document.querySelector(headerClass);
+    waitFor(() => expect(header).toBeInTheDocument());
+  });
+
+  test('Meals', async () => {
+    const { history } = renderWithRouter(<App />);
+
+    waitFor(() => {
+      history.push('/meals');
+    });
+
+    const header = document.querySelector(headerClass);
+    waitFor(() => expect(header).toBeInTheDocument());
+  });
+
+  test('Drinks', async () => {
+    const { history } = renderWithRouter(<App />);
+
+    waitFor(() => {
+      history.push('/drinks');
+    });
+
+    const header = document.querySelector(headerClass);
+    waitFor(() => expect(header).toBeInTheDocument());
+  });
+
+  test('Done Recipes', async () => {
+    const { history } = renderWithRouter(<App />);
+
+    waitFor(() => {
+      history.push('/done-recipes');
+    });
+
+    const header = document.querySelector(headerClass);
+    waitFor(() => expect(header).toBeInTheDocument());
+  });
+
+  test('Favorite Recipes', async () => {
+    const { history } = renderWithRouter(<App />);
+
+    waitFor(() => {
+      history.push('/favorite-recipes');
+    });
+
+    const header = document.querySelector(headerClass);
+    waitFor(() => expect(header).toBeInTheDocument());
+  });
+});
+
+describe('O componente Header não aparece nas páginas', () => {
+  const headerClass = '.header-container';
+
+  test('Login', async () => {
+    const { history } = renderWithRouter(<App />);
+
+    waitFor(() => {
+      history.push('/');
+    });
+
+    const header = document.querySelector(headerClass);
+    waitFor(() => expect(header).not.toBeInTheDocument());
+  });
+
+  test('Detalhes da receita de bebida', async () => {
+    const { history } = renderWithRouter(<App />);
+
+    waitFor(() => {
+      history.push('/drinks/15997');
+    });
+
+    const header = document.querySelector(headerClass);
+    waitFor(() => expect(header).not.toBeInTheDocument());
+  });
+
+  test('Detalhes da receita de comida', async () => {
+    const { history } = renderWithRouter(<App />);
+
+    waitFor(() => {
+      history.push('/meals/52772');
+    });
+
+    const header = document.querySelector(headerClass);
+    waitFor(() => expect(header).not.toBeInTheDocument());
+  });
+
+  test('Receita de bebida em progresso', async () => {
+    const { history } = renderWithRouter(<App />);
+
+    waitFor(() => {
+      history.push('/drinks/15997/in-progress');
+    });
+
+    const header = document.querySelector(headerClass);
+    waitFor(() => expect(header).not.toBeInTheDocument());
+  });
+
+  test('Receita de comida em progresso', async () => {
+    const { history } = renderWithRouter(<App />);
+
+    waitFor(() => {
+      history.push('/meals/52772/in-progress');
+    });
+
+    const header = document.querySelector(headerClass);
+    waitFor(() => expect(header).not.toBeInTheDocument());
   });
 });

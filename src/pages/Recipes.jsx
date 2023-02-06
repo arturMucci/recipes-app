@@ -63,7 +63,7 @@ function Recipes({ match: { url } }) {
         { listFood.map((category, index) => (
           index < cinco && (
             <ButtonCategoryFood
-              key={ category.strCategory }
+              key={ `category-${category.strCategory}` }
               category={ category.strCategory }
               fetchFilterFood={ test ? fetchFilterFood : fetchFood2 }
             />
@@ -81,10 +81,11 @@ function Recipes({ match: { url } }) {
       { recipesFood.map((recipe, index) => (
         index < doze && (
           <NavLink
-            key={ recipe.idMeal }
-            to={ `meals/${recipe.idMeal}` }
+            key={ `NavLink-${recipe.idMeal}` }
+            to={ `/meals/${recipe.idMeal}` }
           >
             <RecipeCard
+              key={ `RecipeCard-${recipe.idMeal}` }
               recipe={ recipe }
               index={ index }
               url={ url }
