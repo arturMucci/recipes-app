@@ -16,11 +16,10 @@
 }
 
 .recipes-container {
-  align-self: center;
+  align-items: center;
   display: flex;
   flex-flow: column wrap;
   height: 1269px;
   left: 3px;
-  position: absolute;
-  top: 235px;
+  width: fit-content;
 }

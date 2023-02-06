@@ -9,14 +9,14 @@
 
 .login-header {
   background-color: #41197f;
-  height: 422px;
+  height: 380px;
   position: absolute;
   width: 360px;
 }
 
 .recipes-app-logo {
   height: 157.25px;
-  left: 81px;
+  left: 60px;
   position: absolute;
   top: 79.17px;
   width: 198px;
@@ -26,7 +26,7 @@
   height: 279px;
   left: -180px;
   position: absolute;
-  top: 241px;
+  top: 210px;
   width: 700px;
 }
 
@@ -36,8 +36,8 @@
   left: 89px;
   position: absolute;
   text-transform: uppercase;
-  top: 524px;
-  width: 182px;
+  top: 470px;
+  width: 140px;
 }
 
 .email-input {
@@ -47,8 +47,8 @@
   left: 42px;
   padding: 0 10px;
   position: absolute;
-  top: 564px;
-  width: 276px;
+  top: 510px;
+  width: 230px;
 }
 
 .email-input::placeholder {
@@ -62,8 +62,8 @@
   left: 42px;
   padding: 0 10px;
   position: absolute;
-  top: 613px;
-  width: 276px;
+  top: 560px;
+  width: 230px;
 }
 
 .password-input::placeholder {
@@ -78,6 +78,6 @@
   height: 40px;
   left: 42px;
   position: absolute;
-  top: 662px;
-  width: 276px;
+  top: 610px;
+  width: 230px;
 }

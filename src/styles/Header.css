@@ -3,42 +3,52 @@ header {
 }
 
 .logo-container {
+  align-items: center;
   background-color: #fcdc36;
+  display: flex;
   height: 52px;
-  width: 360px;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.logo {
+  align-items: center;
+  display: flex;
 }
 
 .header-recipesApp-logo {
   height: 39.28px;
-  left: 26px;
-  position: absolute;
-  top: 6px;
   width: 42.6px;
+}
+
+.App-name {
+  align-items: flex-end;
+  display: flex;
 }
 
 .header-recipes-word {
   height: 13.39px;
-  left: 89.37px;
-  position: absolute;
-  top: 20.78px;
+  margin-left: 10px;
   width: 71.62px;
 }
 
 .header-app-word {
   height: 13.06px;
-  left: 160px;
-  position: absolute;
-  top: 24.7px;
   width: 32.91px;
+}
+
+.links-container {
+  align-items: baseline;
+  align-self: center;
+  display: flex;
+  justify-content: space-evenly;
+  width: 100px;
 }
 
 .header-search-btn {
   background-color: inherit;
   border: none;
   height: 26.85px;
-  left: 267px;
-  position: absolute;
-  top: 14px;
   width: 26.85px;
 }
 
@@ -46,18 +56,39 @@ header {
   background-color: inherit;
   border: none;
   height: 28.71px;
-  left: 310px;
-  position: absolute;
-  top: 13px;
   width: 28.71px;
 }
 
-.page-logo {
+.meals-page-logo {
   height: 29.53px;
-  left: 160px;
+  left: 130px;
   position: absolute;
   top: 83px;
   width: 40.33px;
+}
+
+.drinks-page-logo {
+  height: 29.53px;
+  left: 155px;
+  position: absolute;
+  top: 83px;
+  width: 40.33px;
+}
+
+.meals-page-title {
+  color: #41197f;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 900;
+  height: 21px;
+  left: 80px;
+  letter-spacing: 0.105em;
+  line-height: 20px;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  top: 126px;
+  width: 147px;
 }
 
 .recipe-page-title {
@@ -66,7 +97,7 @@ header {
   font-style: normal;
   font-weight: 900;
   height: 21px;
-  left: 107px;
+  left: 105px;
   letter-spacing: 0.105em;
   line-height: 20px;
   position: absolute;
@@ -74,4 +105,8 @@ header {
   text-transform: uppercase;
   top: 126px;
   width: 147px;
+}
+
+.searchbar-container {
+  position: absolute;
 }

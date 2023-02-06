@@ -6,7 +6,7 @@ import RecipeCard from '../components/RecipeCard';
 import ButtonCategoryFood from '../components/ButtonCategoryFood';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import AllLogo from '../images/AllLogo.svg';
+import AllLogo from '../images/AllMealsLogo.svg';
 import '../styles/Recipes.css';
 
 const doze = 12;
@@ -79,7 +79,7 @@ function Recipes({ match: { url } }) {
           )
         )) }
       </div>
-      <div className="recipes-Container">
+      <div className="recipes-container">
         {
           recipesFood.map((recipe, index) => (
             index < doze && (

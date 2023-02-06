@@ -6,7 +6,8 @@ import RecipeCard from '../components/RecipeCard';
 import ButtonCategoryDrink from '../components/ButtonCategoryDrink';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-// import '../styles/Recipes.css';
+import AllLogo from '../images/AllDrinksLogo.svg';
+import '../styles/RecipesDrinks.css';
 
 const doze = 12;
 const cinco = 5;
@@ -50,9 +51,9 @@ function RecipesDrinks({ match: { url } }) {
   }, [fetchDrink, fetchListDrink]);
 
   return (
-    <div className="recipes-container">
+    <div className="recipes-page-container">
       <Header />
-      <div className="filter-container">
+      <div className="category-container">
         { listDrink.map((category, index) => (
           index < cinco && (
             <ButtonCategoryDrink
@@ -65,25 +66,29 @@ function RecipesDrinks({ match: { url } }) {
         <button
           type="button"
           data-testid="All-category-filter"
-          onClick={ () => fetchDrink2() }
+          onClick={ () => fetchFood2() }
+          style={ { backgroundColor: 'inherit', border: 'none' } }
         >
-          All
+          <img src={ AllLogo } alt="AllLogo" />
         </button>
       </div>
-      { recipesDrink.map((recipe, index) => (
-        index < doze && (
-          <NavLink
-            key={ recipe.idDrink }
-            to={ `/drinks/${recipe.idDrink}` }
-          >
-            <RecipeCard
-              recipe={ recipe }
-              index={ index }
-              url={ url }
-            />
-          </NavLink>
-        )
-      )) }
+      <div className="recipes-container">
+        { recipesDrink.map((recipe, index) => (
+          index < doze && (
+            <NavLink
+              className="recipe-card-link"
+              key={ recipe.idDrink }
+              to={ `/drinks/${recipe.idDrink}` }
+            >
+              <RecipeCard
+                recipe={ recipe }
+                index={ index }
+                url={ url }
+              />
+            </NavLink>
+          )
+        )) }
+      </div>
       <Footer />
     </div>
   );

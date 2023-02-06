@@ -68,13 +68,13 @@ function Header() {
     return (
       <header>
         <div className="logo-container">
-          <section>
+          <section className="logo">
             <img
               className="header-recipesApp-logo"
               src={ RecipesAppLogoHeader }
               alt="recipes app logo"
             />
-            <div>
+            <div className="App-name">
               <img
                 className="header-recipes-word"
                 src={ RecipesWord }
@@ -87,7 +87,7 @@ function Header() {
               />
             </div>
           </section>
-          <section>
+          <nav className="links-container">
             <button
               className="header-search-btn"
               type="button"
@@ -110,29 +110,40 @@ function Header() {
                 data-testid="profile-top-btn"
               />
             </button>
-          </section>
+          </nav>
         </div>
         <div>
           <section>
             {title === 'Meals'
               ? (
-                <img
-                  className="page-logo"
-                  src={ MealsPageLogo }
-                  alt="meals page logo"
-                />
+                <>
+                  <img
+                    className="meals-page-logo"
+                    src={ MealsPageLogo }
+                    alt="meals page logo"
+                  />
+                  <h1
+                    data-testid="meals-page-title"
+                    className="meals-page-title"
+                  >
+                    {title}
+                  </h1>
+                </>
               ) : (
-                <img
-                  src={ DrinksPageLogo }
-                  alt="meals page logo"
-                />
+                <>
+                  <img
+                    className="drinks-page-logo"
+                    src={ DrinksPageLogo }
+                    alt="meals page logo"
+                  />
+                  <h1
+                    data-testid="drinks-page-title"
+                    className="recipe-page-title"
+                  >
+                    {title}
+                  </h1>
+                </>
               )}
-            <h1
-              data-testid="meals-page-title"
-              className="recipe-page-title"
-            >
-              {title}
-            </h1>
           </section>
           <section className="searchbar-container">
             {

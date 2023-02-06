@@ -31,7 +31,7 @@ export default function ButtonCategoryFood({ category, fetchFilterFood }) {
         data-testid={ `${category}-category-filter` }
         onClick={ () => fetchFilterFood(category) }
       >
-        <img src={ img(category) } alt="" />
+        <img src={ img(category) } alt={ `${category}-category-logo` } />
       </button>
     </div>
   );

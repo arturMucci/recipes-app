@@ -1,0 +1,14 @@
+.btn-category-container {
+  box-sizing: border-box;
+}
+
+.category-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+}
+
+.category {
+  background-color: inherit;
+  border: none;
+}
