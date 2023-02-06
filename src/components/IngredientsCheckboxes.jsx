@@ -1,6 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import '../styles/RecipeInProgress.css';
+import RecipesProvider from '../context/RecipesProvider';
+import {
+  arrayIsEmpty,
+  objectIsEmpty,
+  getRecipeIngredients,
+} from '../services';
 
 export default function IngredientsCheckboxes(
   {
@@ -8,68 +14,69 @@ export default function IngredientsCheckboxes(
     recipeIsMeal,
     markedCheckboxesVerification,
     isRecipeInProgress,
-    objectIsEmpty,
     checkIfRecipeIsAlreadyInProgress,
   },
 ) {
   const [recipeIngredients, setRecipeIngredients] = useState({});
 
-  const getRecipeIngredients = () => {
-    const ingredients = Object.entries(recipe)
-      .filter((ingredient) => ingredient[0].includes('strIngredient'))
-      .map((ingredient) => ingredient[1]);
+  const { setInProgressRecipes } = useContext(RecipesProvider);
 
-    const measures = Object.entries(recipe)
-      .filter((measure) => measure[0].includes('strMeasure'))
-      .map((measure) => measure[1]);
-
-    setRecipeIngredients({ ingredients, measures });
-  };
-
-  useEffect(getRecipeIngredients, [recipe]);
+  useEffect(() => {
+    const recipeIngredientsObj = getRecipeIngredients(recipe);
+    setRecipeIngredients(recipeIngredientsObj);
+  }, [recipe]);
 
   const saveMealProgress = (checkedIngredientsIds, inProgressRecipes) => {
     const inProgressRecipeObject = {
       id: recipe.idMeal,
       checkedIngredientsIds,
     };
+    let localStorageMeals;
+    let localStorageDrinks;
 
-    const localStorageMeals = inProgressRecipes.meals;
-    const localStorageDrinks = (objectIsEmpty(inProgressRecipes.drinks)
-      ? []
-      : inProgressRecipes.drinks);
+    if (inProgressRecipes === null) {
+      localStorageMeals = [];
+      localStorageDrinks = [];
+    } else {
+      localStorageMeals = inProgressRecipes.meals;
+      localStorageDrinks = (
+        arrayIsEmpty(inProgressRecipes.drinks)
+          ? []
+          : inProgressRecipes.drinks
+      );
+    }
 
     let inProgressMeals = {};
 
-    if (objectIsEmpty(localStorageMeals)) {
-      inProgressMeals = (JSON.stringify({
+    if (arrayIsEmpty(localStorageMeals)) {
+      inProgressMeals = {
         drinks: [...localStorageDrinks],
         meals: [
           inProgressRecipeObject,
         ],
-      }));
+      };
     } else if (!isRecipeInProgress(recipe.idMeal, localStorageMeals)) {
-      inProgressMeals = (JSON.stringify({
+      inProgressMeals = {
         drinks: [...localStorageDrinks],
         meals: [
           ...localStorageMeals,
           inProgressRecipeObject,
         ],
-      }));
+      };
     } else {
       const filteredMeals = localStorageMeals
         .filter((inProgressRecipe) => inProgressRecipe.id !== recipe.idMeal);
-
-      inProgressMeals = (JSON.stringify({
+      inProgressMeals = {
         drinks: [...localStorageDrinks],
         meals: [
           ...filteredMeals,
           inProgressRecipeObject,
         ],
-      }));
+      };
     }
-
-    localStorage.setItem('inProgressRecipes', inProgressMeals);
+    const inProgressMealsJSON = JSON.stringify(inProgressMeals);
+    localStorage.setItem('inProgressRecipes', inProgressMealsJSON);
+    setInProgressRecipes(inProgressMeals);
   };
 
   const saveDrinkProgress = (checkedIngredientsIds, inProgressRecipes) => {
@@ -77,43 +84,52 @@ export default function IngredientsCheckboxes(
       id: recipe.idDrink,
       checkedIngredientsIds,
     };
+    let localStorageMeals;
+    let localStorageDrinks;
 
-    const localStorageMeals = (objectIsEmpty(inProgressRecipes.meals)
-      ? []
-      : inProgressRecipes.meals);
-    const localStorageDrinks = inProgressRecipes.drinks;
+    if (inProgressRecipes === null) {
+      localStorageMeals = [];
+      localStorageDrinks = [];
+    } else {
+      localStorageMeals = (
+        arrayIsEmpty(inProgressRecipes.meals)
+          ? []
+          : inProgressRecipes.meals
+      );
+      localStorageDrinks = inProgressRecipes.drinks;
+    }
 
     let inProgressDrinks = {};
 
-    if (objectIsEmpty(localStorageDrinks)) {
-      inProgressDrinks = (JSON.stringify({
+    if (arrayIsEmpty(localStorageDrinks)) {
+      inProgressDrinks = {
         drinks: [
           inProgressRecipeObject,
         ],
         meals: [...localStorageMeals],
-      }));
+      };
     } else if (!isRecipeInProgress(recipe.idDrink, localStorageDrinks)) {
-      inProgressDrinks = (JSON.stringify({
+      inProgressDrinks = {
         drinks: [
           ...localStorageDrinks,
           inProgressRecipeObject,
         ],
         meals: [...localStorageMeals],
-      }));
+      };
     } else {
       const filteredDrinks = localStorageDrinks
         .filter((inProgressRecipe) => inProgressRecipe.id !== recipe.idDrink);
-
-      inProgressDrinks = (JSON.stringify({
+      inProgressDrinks = {
         drinks: [
           ...filteredDrinks,
           inProgressRecipeObject,
         ],
         meals: [...localStorageMeals],
-      }));
+      };
     }
-
-    localStorage.setItem('inProgressRecipes', inProgressDrinks);
+    const inProgressDrinksJSON = JSON.stringify(inProgressDrinks);
+    localStorage.setItem('inProgressRecipes', inProgressDrinksJSON);
+    setInProgressRecipes(inProgressDrinks);
   };
 
   const saveProgressToLocalStorage = () => {

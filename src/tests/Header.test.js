@@ -45,3 +45,121 @@ describe('O componente Header', () => {
     // expect(history.location.pathname).toBe('/profile');
   });
 });
+
+describe('O componente Header aparece apenas nas páginas', () => {
+  const headerClass = '.header-container';
+
+  test('Profile', async () => {
+    const { history } = renderWithRouter(<App />);
+
+    waitFor(() => {
+      history.push('/profile');
+    });
+
+    const header = document.querySelector(headerClass);
+    waitFor(() => expect(header).toBeInTheDocument());
+  });
+
+  test('Meals', async () => {
+    const { history } = renderWithRouter(<App />);
+
+    waitFor(() => {
+      history.push('/meals');
+    });
+
+    const header = document.querySelector(headerClass);
+    waitFor(() => expect(header).toBeInTheDocument());
+  });
+
+  test('Drinks', async () => {
+    const { history } = renderWithRouter(<App />);
+
+    waitFor(() => {
+      history.push('/drinks');
+    });
+
+    const header = document.querySelector(headerClass);
+    waitFor(() => expect(header).toBeInTheDocument());
+  });
+
+  test('Done Recipes', async () => {
+    const { history } = renderWithRouter(<App />);
+
+    waitFor(() => {
+      history.push('/done-recipes');
+    });
+
+    const header = document.querySelector(headerClass);
+    waitFor(() => expect(header).toBeInTheDocument());
+  });
+
+  test('Favorite Recipes', async () => {
+    const { history } = renderWithRouter(<App />);
+
+    waitFor(() => {
+      history.push('/favorite-recipes');
+    });
+
+    const header = document.querySelector(headerClass);
+    waitFor(() => expect(header).toBeInTheDocument());
+  });
+});
+
+describe('O componente Header não aparece nas páginas', () => {
+  const headerClass = '.header-container';
+
+  test('Login', async () => {
+    const { history } = renderWithRouter(<App />);
+
+    waitFor(() => {
+      history.push('/');
+    });
+
+    const header = document.querySelector(headerClass);
+    waitFor(() => expect(header).not.toBeInTheDocument());
+  });
+
+  test('Detalhes da receita de bebida', async () => {
+    const { history } = renderWithRouter(<App />);
+
+    waitFor(() => {
+      history.push('/drinks/15997');
+    });
+
+    const header = document.querySelector(headerClass);
+    waitFor(() => expect(header).not.toBeInTheDocument());
+  });
+
+  test('Detalhes da receita de comida', async () => {
+    const { history } = renderWithRouter(<App />);
+
+    waitFor(() => {
+      history.push('/meals/52772');
+    });
+
+    const header = document.querySelector(headerClass);
+    waitFor(() => expect(header).not.toBeInTheDocument());
+  });
+
+  test('Receita de bebida em progresso', async () => {
+    const { history } = renderWithRouter(<App />);
+
+    waitFor(() => {
+      history.push('/drinks/15997/in-progress');
+    });
+
+    const header = document.querySelector(headerClass);
+    waitFor(() => expect(header).not.toBeInTheDocument());
+  });
+
+  test('Receita de comida em progresso', async () => {
+    const { history } = renderWithRouter(<App />);
+
+    waitFor(() => {
+      history.push('/meals/52772/in-progress');
+    });
+
+    const header = document.querySelector(headerClass);
+    waitFor(() => expect(header).not.toBeInTheDocument());
+  });
+});

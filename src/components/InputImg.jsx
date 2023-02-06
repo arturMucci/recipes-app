@@ -27,7 +27,9 @@ function InputImg({
     }
   }, [setFavoriteRecipes]);
 
-  const actualUrl = window.location.href;
+  const actualUrl = window.location.href
+    .replace('/in-progress', '');
+
   const copyLink = () => {
     if (!isCopied) {
       setIsCopied(true);

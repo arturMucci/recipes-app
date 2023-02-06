@@ -8,6 +8,7 @@ function Profile() {
   const userObj = JSON.parse(user); // https://www.w3schools.com/js/js_json_stringify.asp
 
   const { setTitle } = useContext(RecipesProvider);
+
   useEffect(() => {
     setTitle('Profile');
   }, [setTitle]);

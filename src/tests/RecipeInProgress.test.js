@@ -24,7 +24,7 @@ describe('A página Recipe In Progress contém', () => {
     userEvent.type(passwordInput, userPassword);
     userEvent.click(loginButton);
 
-    history.push('/meals/52771/in-progress');
+    history.push('/52771/in-progress');
   });
 
   test('um elemento que mostra a foto da receita', () => {

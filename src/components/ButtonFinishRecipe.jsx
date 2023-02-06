@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import '../styles/RecipeInProgress.css';
+import { isRecipeDone } from '../services/index';
 
 export default function ButtonFinishRecipe({ recipe, disabled, recipeIsMeal }) {
   const history = useHistory();
@@ -31,21 +32,12 @@ export default function ButtonFinishRecipe({ recipe, disabled, recipeIsMeal }) {
         doneDate: new Date(),
       });
 
-  const isRecipeDone = (recipeId, doneRecipesArray) => (
-    doneRecipesArray.some((doneRecipe) => doneRecipe.id === recipeId)
-  );
-
   const saveDoneRecipeToLocalStorage = () => {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     const recipeObject = setDoneRecipeTemplate();
     const recipeId = (recipeIsMeal) ? recipe.idMeal : recipe.idDrink;
 
     let doneRecipe = [];
-
-    //  se o objeto estiver vazio: add a receita atual
-    //  se o objeto tiver itens: checar se a receita atual está
-    //    se a receita atual não estiver: add a receita atual
-    //    se a receita atual estiver: n faz nada
 
     if (doneRecipes === null) {
       doneRecipe = JSON.stringify([recipeObject]);

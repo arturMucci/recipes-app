@@ -27,26 +27,26 @@ function Header() {
 
   const { pathname } = history.location;
 
-  let showProfile = true;
+  // let showProfile = true;
 
-  if (
-    pathname === '/'
-    || pathname.startsWith('/meals/')
-    || pathname.startsWith('/drinks/')
-    || pathname.startsWith('meals/:id/')
-    || pathname.startsWith('drinks/:id/')
-  ) {
-    showProfile = true;
+  // if (
+  //   pathname === '/'
+  //   || pathname.startsWith('/meals/')
+  //   || pathname.startsWith('/drinks/')
+  //   || pathname.startsWith('meals/:id/')
+  //   || pathname.startsWith('drinks/:id/')
+  // ) {
+  //   // showProfile = true;
 
-    return null;
-  }
+  //   return null;
+  // }
 
   if (
     pathname === '/profile'
     || pathname === '/done-recipes'
     || pathname === '/favorite-recipes'
   ) {
-    showProfile = true;
+    // showProfile = true;
     return (
       <div className="header-container">
         <h1 data-testid="page-title">{title}</h1>
@@ -59,45 +59,45 @@ function Header() {
     );
   }
 
-  if (showProfile) {
-    return (
-      <div className="header-container">
-        <h1 data-testid="page-title">{title}</h1>
-        <div className="btn-container">
-          <button
-            className="header-btn"
-            type="button"
-            onClick={ sendToProfile }
-          >
-            <img src={ profileIcon } alt="profile" data-testid="profile-top-btn" />
-          </button>
-          {
-            (searching.clicked) && (
-              <label htmlFor="search-input">
-                <input
-                  type="text"
-                  name="search-input"
-                  onChange={ handleSearch }
-                  data-testid="search-input"
-                />
-              </label>
-            )
-          }
-          <button
-            className="header-btn"
-            type="button"
-            onClick={ handleClick }
-          >
-            <img
-              src={ searchIcon }
-              alt="search"
-              data-testid="search-top-btn"
-            />
-          </button>
-        </div>
+  // if (showProfile) {
+  return (
+    <div className="header-container">
+      <h1 data-testid="page-title">{title}</h1>
+      <div className="btn-container">
+        <button
+          className="header-btn"
+          type="button"
+          onClick={ sendToProfile }
+        >
+          <img src={ profileIcon } alt="profile" data-testid="profile-top-btn" />
+        </button>
+        {
+          (searching.clicked) && (
+            <label htmlFor="search-input">
+              <input
+                type="text"
+                name="search-input"
+                onChange={ handleSearch }
+                data-testid="search-input"
+              />
+            </label>
+          )
+        }
+        <button
+          className="header-btn"
+          type="button"
+          onClick={ handleClick }
+        >
+          <img
+            src={ searchIcon }
+            alt="search"
+            data-testid="search-top-btn"
+          />
+        </button>
       </div>
-    );
-  }
+    </div>
+  );
 }
+// }
 
 export default Header;

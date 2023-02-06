@@ -5,8 +5,6 @@ import '../styles/Footer.css';
 
 // oi eu sou o goku!
 
-// oi eu sou o goku!
-
 export default function Footer() {
   return (
     <div

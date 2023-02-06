@@ -4,7 +4,11 @@ import InputImg from '../components/InputImg';
 import '../styles/RecipeInProgress.css';
 import ButtonFinishRecipe from '../components/ButtonFinishRecipe';
 import IngredientsCheckboxes from '../components/IngredientsCheckboxes';
-import { objectIsEmpty, isRecipeInProgress } from '../services';
+import {
+  isRecipeInProgress,
+  checkInProgressIngredients,
+  objectIsEmpty,
+} from '../services';
 
 export default function RecipeInProgress({ match: { params: { id }, url } }) {
   const [recipe, setRecipe] = useState({});
@@ -28,8 +32,8 @@ export default function RecipeInProgress({ match: { params: { id }, url } }) {
       .then((response) => response.json())
       .then((data) => setRecipe(data[recipeType][0]));
 
-    setLoading(false);
-  }, [endpoint, recipeType]);
+    if (!objectIsEmpty(recipe)) setLoading(false);
+  }, [endpoint, recipeType, recipe]);
 
   const checkIfRecipeIsAlreadyInProgress = useCallback(() => {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -37,25 +41,22 @@ export default function RecipeInProgress({ match: { params: { id }, url } }) {
     let recipeId;
     let localStorageRecipes;
 
-    if (recipeIsMeal) {
-      recipeId = recipe.idMeal;
-      localStorageRecipes = inProgressRecipes.meals;
-    } else {
-      recipeId = recipe.idDrink;
-      localStorageRecipes = inProgressRecipes.drinks;
-    }
+    if (inProgressRecipes !== null) {
+      if (recipeIsMeal) {
+        recipeId = recipe.idMeal;
+        localStorageRecipes = inProgressRecipes.meals;
+      } else {
+        recipeId = recipe.idDrink;
+        localStorageRecipes = inProgressRecipes.drinks;
+      }
 
-    if (isRecipeInProgress(recipeId, localStorageRecipes)) {
-      const { checkedIngredientsIds } = localStorageRecipes.find(
-        (localStorageRecipe) => localStorageRecipe.id === recipeId,
-      );
+      if (isRecipeInProgress(recipeId, localStorageRecipes)) {
+        const { checkedIngredientsIds } = localStorageRecipes.find(
+          (localStorageRecipe) => localStorageRecipe.id === recipeId,
+        );
 
-      checkedIngredientsIds.forEach((ingredientId) => {
-        if (document.getElementById(ingredientId) !== null) {
-          document.getElementById(ingredientId).classList.add('done-step');
-          document.getElementById(ingredientId).firstChild.checked = true;
-        }
-      });
+        checkInProgressIngredients(checkedIngredientsIds);
+      }
     }
   }, [recipeIsMeal, recipe.idMeal, recipe.idDrink]);
 
@@ -65,6 +66,10 @@ export default function RecipeInProgress({ match: { params: { id }, url } }) {
     const finishedRecipe = (ingredientsCheckboxes.length === checkedIngredients.length);
     setDisableFinishRecipeButton(!finishedRecipe);
   };
+
+  const nameKey = `str${recipeType[0]
+    .toUpperCase()}${recipeType.slice(1, recipeType.length - 1)}`;
+  const imgSrcKey = `${nameKey}Thumb`;
 
   return (
     (loading)
@@ -77,9 +82,14 @@ export default function RecipeInProgress({ match: { params: { id }, url } }) {
         <div>
           <fieldset>
             <legend>Recipe In Progress</legend>
-            <InputImg />
+            <InputImg
+              recipe={ recipe }
+              ask={ recipeType }
+              nameKey={ nameKey }
+              imgKeys={ [imgSrcKey, nameKey] }
+            />
             <img
-              src={ recipeIsMeal ? recipe.strMealThumb : recipe.strDrinkThumb }
+              src={ recipe[imgSrcKey] }
               alt=""
               data-testid="recipe-photo"
               className="recipe-photo"
@@ -87,7 +97,7 @@ export default function RecipeInProgress({ match: { params: { id }, url } }) {
             <h1
               data-testid="recipe-title"
             >
-              { recipeIsMeal ? recipe.strMeal : recipe.strDrink }
+              { recipe[nameKey] }
             </h1>
             <h2
               data-testid="recipe-category"
@@ -99,7 +109,6 @@ export default function RecipeInProgress({ match: { params: { id }, url } }) {
               recipeIsMeal={ recipeIsMeal }
               markedCheckboxesVerification={ markedCheckboxesVerification }
               isRecipeInProgress={ isRecipeInProgress }
-              objectIsEmpty={ objectIsEmpty }
               checkIfRecipeIsAlreadyInProgress={ checkIfRecipeIsAlreadyInProgress }
             />
             <div
